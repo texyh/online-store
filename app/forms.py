@@ -46,7 +46,7 @@ class ProfileForm(Form):
     school = SelectField(
         'school',
         choices=mychoice,
-        validators = [Required()]
+        validators = [Required('choose a school')]
     )
 
 
@@ -54,16 +54,17 @@ class ProfileForm(Form):
         'phonenumber',
         validators=[
             Length(min=11,max=14),
-            Required()
+            Required('min of 11 characters')
         ]
 
     )
-
+  
     gender = RadioField(
         'gender',
         choices = [('male','Male'),('female','Female')]
 
     )
+
 
     entrydate = DateField(
         'entrydate',

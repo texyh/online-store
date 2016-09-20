@@ -16,6 +16,10 @@
  </head>
 
  <body class = "container">
+
+ 	{% for messages in get_flashed_messages() %}
+        <div class="alert alert-info">{{ messages }}</div>
+    {% endfor %}
  	
 <div class="row">
 	

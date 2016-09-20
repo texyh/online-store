@@ -22,6 +22,10 @@
 
  <body>
 
+ 	{% for messages in get_flashed_messages() %}
+        <div class="alert alert-info">{{ messages }}</div>
+    {% endfor %}
+
 <div class = "col-md-4 col-md-offset-4 login">
 		<form class="form-horizontal" action = "/registration" method = "post">
 			{{ form.hidden_tag() }}
