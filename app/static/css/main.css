@@ -1,0 +1,66 @@
+@import 'https://fonts.googleapis.com/css?family=Bad+Script';
+
+
+
+.login{
+	margin-top:10%;
+}
+
+.custom{
+	background-color:#eb0a2c;
+	color:white;
+	font-family:'Bad Script';
+	font-size:20px;	
+}
+
+.register{
+    background-color:#12a1ab;
+    color:white;
+    font-family:'Bad Script';
+    font-size:20px;
+    
+}
+#regis{
+    margin-top: 50px;
+}
+
+.gender{
+margin-right: 2050px;
+}
+
+
+.gender-group{
+    margin-left: 10px;
+}
+.custom1{
+	color:#eb0a2c;	
+}
+
+#writing{
+	font-size: 20px;
+	color: #eb0a2c;
+	font-family:'Bad Script'
+}
+
+
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
