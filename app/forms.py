@@ -1,13 +1,13 @@
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, validators, HiddenField, \
-                    SelectField, RadioField
+                    SelectField, RadioField, BooleanField, ValidationError
 from wtforms.fields.html5 import DateField
 
 from wtforms.validators import Required, Length, Email, EqualTo
 
 from datetime import date
 
-
+from models import User
 
 
 
@@ -15,6 +15,10 @@ from datetime import date
 class LoginForm(Form):
     username = TextField('username', validators=[Required()])
     password = PasswordField('Password', validators=[Required()])
+    remember_me = BooleanField("keep me logged in")
+
+
+    
 
 
 #signup form
@@ -37,6 +41,16 @@ class RegistrationForm(Form):
             Required(), EqualTo('password', message='Password must match.')
         ]
     )
+
+    def validate_email(self,field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email already registration')
+
+    def validate_username(self,field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError('username already taken')
+
+
     
     
 

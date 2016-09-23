@@ -7,11 +7,21 @@ import os
 #Flask bycrypt for password hashing    
 from flask_bcrypt import Bcrypt
 
-
-
-
+from flask_login import UserMixin
 
 from views import app
+
+from views import login_manager
+
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+from flask import current_app
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 db =  SQLAlchemy(app)
 
@@ -27,19 +37,43 @@ manager.add_command('db', MigrateCommand)
 
 
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     __tablename__ = 'users'
     id = db.Column('id', db.Integer, primary_key=True)
     username = db.Column('firstname', db.String, nullable=False,unique=True)
     email = db.Column('email', db.String, nullable=False,unique=True)
     password = db.Column('password',db.String,nullable=False)
+    confirmed = db.Column('confirmed',db.Boolean,default=False)
+    profil = db.relationship('Profile',backref='users',lazy='dynamic')
     
 
-    def __init__(self,username,email,password):
+    def __init__(self,username,email,password,confirmed):
         
         self.username = username    
         self.email = email
         self.password = bcrypt.generate_password_hash(password)
+        self.confirmed = confirmed
+
+    def generate_confirmation_token(self,expiration=3600):
+        s = Serializer(current_app.cofig['SECRET_KEY'],expiration)
+        return s.dumps({'confirm':self.id})
+
+    def confirm(self,token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirm = True
+        db.session.add(self)
+        return True
+
+
+
+
+
         
 
 
@@ -50,8 +84,8 @@ class Profile(db.Model):
     gender = db.Column('gender',db.String,nullable=False)
     entrydate = db.Column('entrydate',db.DateTime,nullable=False)
     graddate = db.Column('graddate',db.DateTime,nullable=False)
-    confirmed = db.Column('confirmed',db.Boolean,nullable=False,default=False)
     school = db.Column('school',db.String,nullable=False)
+    user  = db.Column('user',db.Integer,db.ForeignKey('user.id'))
     schoolr = db.relationship('School',backref='profile',lazy='dynamic')
 
     def __init__(self,phonenumber,gender,
@@ -60,7 +94,7 @@ class Profile(db.Model):
         self.gender = gender
         self.entrydate = entrydate
         self.gradedate = graddate
-        self.confirmed = confirmed
+        
 
 
 
