@@ -1,0 +1,16 @@
+<html>
+<head>
+	<title>unconfirmed</title>
+</head>
+<body>
+
+ 	{% for messages in get_flashed_messages() %}
+        <div class="alert alert-info">{{ messages }}</div>
+    {% endfor %}
+
+<h1>Welcome!</h1>
+<br>
+<p>You have not confirmed your account. Please check your inbox (and your spam folder) - you should have received an email with a confirmation link.</p>
+<p>Didn't get the email? <a href="{{url_for('resend')}}">Resend</a>.</p>
+</body>
+</html>

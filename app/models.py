@@ -40,11 +40,10 @@ manager.add_command('db', MigrateCommand)
 class User(db.Model,UserMixin):
     __tablename__ = 'users'
     id = db.Column('id', db.Integer, primary_key=True)
-    username = db.Column('firstname', db.String, nullable=False,unique=True)
+    username = db.Column('username', db.String, nullable=False,unique=True)
     email = db.Column('email', db.String, nullable=False,unique=True)
     password = db.Column('password',db.String,nullable=False)
     confirmed = db.Column('confirmed',db.Boolean,default=False)
-    profil = db.relationship('Profile',backref='users',lazy='dynamic')
     
 
     def __init__(self,username,email,password,confirmed):
@@ -55,7 +54,7 @@ class User(db.Model,UserMixin):
         self.confirmed = confirmed
 
     def generate_confirmation_token(self,expiration=3600):
-        s = Serializer(current_app.cofig['SECRET_KEY'],expiration)
+        s = Serializer(current_app.config['SECRET_KEY'],expiration)
         return s.dumps({'confirm':self.id})
 
     def confirm(self,token):
@@ -66,8 +65,9 @@ class User(db.Model,UserMixin):
             return False
         if data.get('confirm') != self.id:
             return False
-        self.confirm = True
+        self.confirmed = True
         db.session.add(self)
+        db.session.commit()
         return True
 
 
@@ -85,7 +85,6 @@ class Profile(db.Model):
     entrydate = db.Column('entrydate',db.DateTime,nullable=False)
     graddate = db.Column('graddate',db.DateTime,nullable=False)
     school = db.Column('school',db.String,nullable=False)
-    user  = db.Column('user',db.Integer,db.ForeignKey('user.id'))
     schoolr = db.relationship('School',backref='profile',lazy='dynamic')
 
     def __init__(self,phonenumber,gender,
@@ -136,7 +135,7 @@ class Post(db.Model):
 
 
 
-
+db.create_all()
 
 
 

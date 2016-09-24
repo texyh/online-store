@@ -1,7 +1,6 @@
-from models import db, User
+from models import *
 
-db.create_all()
 
-user = User('onwuzulike','emeka',)
-db.session.add(user)
+user = User.query.filter_by(email='onwuzulikee1@gmail.com')
+db.session.delete(user)
 db.session.commit()

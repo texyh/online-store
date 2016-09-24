@@ -7,7 +7,7 @@ from wtforms.validators import Required, Length, Email, EqualTo
 
 from datetime import date
 
-from models import User
+from models import *
 
 
 
@@ -80,14 +80,14 @@ class ProfileForm(Form):
     )
 
 
-    entrydate = DateField(
-        'entrydate',
-        format = '%d%m%Y'
+    entry = DateField(
+        'entry',
+        format='%Y-%m-%d'
 
     )
     
-    graddate = DateField(
-        'Pickdate',
-        format = '%d%m%Y'
+    grad = DateField(
+        'Pick',
+        format = '%Y-%m-%d'
 
     )
