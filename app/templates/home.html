@@ -32,22 +32,29 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     	<ul class="nav navbar-nav navbar-left">
-		    <li><a href="#"><i class = "glyphicon glyphicon-envelope"></i> Market Place</a></li>
-		    <li><a href="#">Pulse</a></li>
-		    <li><a href="#">Event</a></li>
+		    <li><a href="{{url_for('home')}}"><i class = "glyphicon glyphicon-envelope"></i> Market Place</a></li>
+		    <li><a href="{{url_for('pulse')}}">Pulse</a></li>
+		    <li><a href="{{url_for('event')}}">Event</a></li>
     	</ul>
 
 
       <ul class="nav navbar-nav navbar-right">
+        
         <li><a href="#">Notification <span class="badge">50</span></a></li>
+        
         <li><a href="#">Message <span class="badge">50</span></a></li>
+        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.username}}<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Profile</a></li>
+
             <li><a href="#">Settings</a></li>
+            
             <li><a href="#">Something else here</a></li>
+            
             <li role="separator" class="divider"></li>
+            
             <li><a href="{{url_for('logout')}}"><i class"glyphicon glyphicon-off"></i> Logout</a></li>
           </ul>
           

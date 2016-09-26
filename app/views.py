@@ -138,6 +138,19 @@ def resend():
 	return redirect(url_for('unconfirmed'))
 
 
+@app.route('/event')
+@login_required
+@check_confirmed
+def event():
+	return render_template('event.html')
+
+
+
+@app.route('/event')
+@login_required
+@check_confirmed
+def pulse():
+	return render_template('pulse.html')
 
 
 @app.route('/email')
