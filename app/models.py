@@ -44,7 +44,7 @@ class User(db.Model,UserMixin):
     email = db.Column('email', db.String, nullable=False,unique=True)
     password = db.Column('password',db.String,nullable=False)
     confirmed = db.Column('confirmed',db.Boolean,default=False)
-    
+    prof_rela = db.relationship('Profile',backref='users',lazy='dynamic')
 
     def __init__(self,username,email,password,confirmed):
         
@@ -85,14 +85,17 @@ class Profile(db.Model):
     entrydate = db.Column('entrydate',db.DateTime,nullable=False)
     graddate = db.Column('graddate',db.DateTime,nullable=False)
     school = db.Column('school',db.String,nullable=False)
+    user_id = db.Column('user_id',db.Integer,db.ForeignKey('users.id'))
     schoolr = db.relationship('School',backref='profile',lazy='dynamic')
 
     def __init__(self,phonenumber,gender,
-                entrydate,gradedate,confirmed,school):
+                entrydate,graddate,school,user_id):
         self.phonenumber = phonenumber
         self.gender = gender
         self.entrydate = entrydate
-        self.gradedate = graddate
+        self.graddate = graddate
+        self.school = school
+        self.user_id = user_id
         
 
 
@@ -103,8 +106,6 @@ class School(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     school = db.Column('school',db.String,db.ForeignKey('profile.school'))
 
-    def __init__(self,school):
-        self.school = school
 
 
 

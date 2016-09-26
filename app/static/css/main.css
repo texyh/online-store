@@ -41,6 +41,28 @@ margin-right: 2050px;
 	color: #eb0a2c;
 	font-family:'Bad Script'
 }
+/* the mail render */
+#top-section{
+    background-color: #12a1ab;
+    height: 200px;
+    padding: 50px 100px 0px 100px;
+}
+
+#below-section{
+    background-color: white;
+    height: 200px;
+}
+#email-heading{
+    color: gray;
+    padding-top: 10px;
+}
+.email{
+    background-color: red;
+    border-radius: 10px;
+}
+
+
+
 
 
 .typed-cursor{

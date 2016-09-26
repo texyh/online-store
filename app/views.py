@@ -28,8 +28,7 @@ from decorators import check_confirmed
 
 @app.route('/')
 def index():
-    form = LoginForm()
-    return render_template('index.html',form=form)
+    return redirect(url_for('home'))
 
    
 
@@ -44,7 +43,7 @@ def login():
 		if user_exist is not None and bcrypt.check_password_hash(user_exist.password,\
 		 		password) == True:
 			login_user(user_exist,form.remember_me.data)
-			return redirect(request.args.get('next') or url_for('registration')) 
+			return redirect(request.args.get('next') or url_for('home')) 
 		
 		flash('invalid login details')
 	return render_template('index.html',form=form)
@@ -70,8 +69,8 @@ def registration():
 			html = render_template('email/email.html',user=user,confirm_url=confirm_url)
 			subject = "confirm your account"
 			send_mail(user.email,subject,html)
-
-			return redirect(url_for('unconfirmed'))
+			session['username'] = username
+			return redirect(url_for('profile'))
 		flash('username or email already exist')
 	return render_template('registration.html',form=form)
 
@@ -85,12 +84,22 @@ def home():
 @app.route('/profile', methods = ['GET','POST'])
 def profile():
 	form = ProfileForm()
-	form.school.choices = [('ABU Zaria', 'ABU Zaria'),
-						 ('University of', 'Python'), ('text', 'Plain Text')]
+	form.school.choices = mychoice = [('ABU Zaria', 'ABU Zaria'), \
+						('UniLag', 'UniLag'), ('UniAbuja', 'UniAbuja')]
 	form.gender.choices = [('male','Male'),('female','Female')]
 	if request.method == 'POST':
+		user = User.query.filter_by(username=session['username']).first()
 		if form.validate():
-			return redirect(url_for('registration'))
+			school=form.school.data
+			phonenumber=form.phonenumber.data
+			entry=form.entry.data
+			grad = form.grad.data
+			gender = form.gender.data
+			profile = Profile(phonenumber=phonenumber,gender=gender,\
+					entrydate=entry,graddate=grad,school=school,user_id=user.id)
+			db.session.add(profile)
+			db.session.commit()
+			return redirect(url_for('unconfirmed'))
 		return 'bad form'
 	return render_template('profile.html',form=form)
 
@@ -99,11 +108,14 @@ def profile():
 @login_required
 def confirm_email(token):
 	if current_user.confirmed:
-		return 'you have been confirmed'
+		flash('Your Account has been confirmed')
+		return redirect(url_for('home'))
 	if current_user.confirm(token):
-		return 'thank you for confirmation'
+		flash('Thank you for confirmation')
+		return redirect(url_for('home'))
 	else:
-		return 'bad token'
+		flash('The Token you supplied is bad or has expired')
+		return redirect(url_for('resend'))
 
 
 @app.route('/unconfirmed')
@@ -123,6 +135,18 @@ def resend():
 	subject = "confirm your account"
 	send_mail(current_user.email,subject,html)
 	flash('another link has been sent','success')
-	flash(current_user.email)
 	return redirect(url_for('unconfirmed'))
 
+
+
+
+@app.route('/email')
+def email():
+	return render_template('email/email.html',user=current_user)
+
+@app.route('/logout')
+@login_required
+def logout():
+	logout_user()
+	flash('You were logged out')
+	return redirect(url_for('login'))

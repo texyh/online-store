@@ -4,13 +4,88 @@
 </head>
 <body>
 
- 	{% for messages in get_flashed_messages() %}
-        <div class="alert alert-info">{{ messages }}</div>
-    {% endfor %}
-
-<h1>Welcome!</h1>
-<br>
-<p>You have not confirmed your account. Please check your inbox (and your spam folder) - you should have received an email with a confirmation link.</p>
-<p>Didn't get the email? <a href="{{url_for('resend')}}">Resend</a>.</p>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+ <html lang = 'en'>
+
+ <head>
+ 	<meta charset="utf-8">
+ 	<title>Bootstrap</title>
+ 	<meta name = "description" content = 'bootstrap'>
+ 	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="../static/css/main.css">
+
+ </head>
+
+ <body>
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    	<ul class="nav navbar-nav navbar-left">
+		    <li><a href="{{url_for('home')}}"><i class = "glyphicon glyphicon-envelope"></i> Market Place</a></li>
+		    <li><a href="#">Pulse</a></li>
+		    <li><a href="#">Event</a></li>
+    	</ul>
+
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Notification <span class="badge">50</span></a></li>
+        <li><a href="#">Message <span class="badge">50</span></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.username}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{url_for('logout')}}"><i class"glyphicon glyphicon-off"></i> Logout</a></li>
+          </ul>
+          
+        </li>
+      </ul>
+
+      <div class="text-center">
+		  <form class="navbar-form navbar-center">
+		    <div class="form-group">
+		      <input type="text" class="form-control" placeholder="Search">
+		    </div>
+		    <button type="submit" class="btn btn-default">Submit</button>
+		  </form>
+  
+  		</div>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+ 	{% for messages in get_flashed_messages() %}
+        <div class="alert alert-info container">{{ messages }}</div>
+    {% endfor %}
+<div class="container jumbotron">
+		<h1>Welcome!</h1>
+		<br>
+		<p>You have not confirmed your account. Please check your Emai (and your spam folder) - you should have received an email with a confirmation link.</p>
+		<p>Didn't get the email? <br> 
+		<a href="{{url_for('resend')}}"><input type="button" class="btn btn-warning" value="Resend"></a></p>
+</div>

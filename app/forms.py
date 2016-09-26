@@ -56,7 +56,7 @@ class RegistrationForm(Form):
 
 #profile
 class ProfileForm(Form):
-    mychoice = [('ABU Zaria', 'ABU Zaria'), ('University of', 'Python'), ('text', 'Plain Text')]
+    mychoice = [('ABU Zaria', 'ABU Zaria'), ('UniLag', 'UniLag'), ('UniAbuja', 'UniAbuja')]
     school = SelectField(
         'school',
         choices=mychoice,
