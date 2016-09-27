@@ -2,7 +2,7 @@ from flask_wtf import Form
 from wtforms import TextField, PasswordField, validators, HiddenField, \
                     SelectField, RadioField, BooleanField, ValidationError, \
                     TextAreaField
-from wtforms.fields.html5 import DateField, TimeField
+from wtforms.fields.html5 import DateField
 
 from flask_wtf.file import FileField
 
@@ -114,12 +114,12 @@ class PulseForm(Form):
 
 
 class EventForm(Form):
-    mychoice = [('tgif','TGIF'),('religious','Religious'),('academic','Academic')]
+    mychoice = [(None,'Eventype'),('tgif','TGIF'),('religious','Religious'),('academic','Academic')]
     eventimage = FileField('Add Photo')
     eventtitle = TextField('Event Title',validators=[Required()])
     description = TextField('Description',validators = [Required()])
     eventdat = DateField('Event Date',format='%Y-%m-%d')
-    eventtime = TimeField('Event Time',)
+    #eventtime = TimeField('Event Time',)
     eventvenue = TextField('Event Venue',validators=[Required()])
     eventoption = RadioField('free',choices=[('free','free')],validators= [Required()])
     eventtype = SelectField('SelectType',choices=mychoice,validators=[Required()])
