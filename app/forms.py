@@ -123,4 +123,4 @@ class EventForm(Form):
     eventvenue = TextField('Event Venue',validators=[Required()])
     eventoption = RadioField('free',choices=[('free','free')],validators= [Required()])
     eventtype = SelectField('SelectType',choices=mychoice,validators=[Required()])
-
+    price = TextField('price',validators=[Required()])
