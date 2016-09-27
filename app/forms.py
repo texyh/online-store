@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, validators, HiddenField, \
-                    SelectField, RadioField, BooleanField, ValidationError
+                    SelectField, RadioField, BooleanField, ValidationError, \
+                    TextAreaField
 from wtforms.fields.html5 import DateField
 
 from flask_wtf.file import FileField
@@ -106,3 +107,6 @@ class MarketForm(Form):
 
 
 
+class PulseForm(Form):
+    staus = TextAreaField("whats on your mind",validators=[Required()])
+    status_image = FileField('Add Photo')
