@@ -136,7 +136,6 @@ class Post(db.Model):
 
 
 
-db.create_all()
 
 
 

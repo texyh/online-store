@@ -3,6 +3,8 @@ from wtforms import TextField, PasswordField, validators, HiddenField, \
                     SelectField, RadioField, BooleanField, ValidationError
 from wtforms.fields.html5 import DateField
 
+from flask_wtf.file import FileField
+
 from wtforms.validators import Required, Length, Email, EqualTo
 
 from datetime import date
@@ -91,3 +93,16 @@ class ProfileForm(Form):
         format = '%Y-%m-%d'
 
     )
+
+
+
+class MarketForm(Form):
+    mychoice = [('trade','Trade'),('rent','Rent'),('sale','Sale')]
+    item_image = FileField('item_photo')
+    item_name = TextField('itemname',validators=[Required()])
+    description = TextField('Description',validators = [Required()])
+    market_option = RadioField('free',choices=[('free','free')],validators= [Required()])
+    market_type = SelectField('SelectType',choices=mychoice,validators=[Required()])
+
+
+
