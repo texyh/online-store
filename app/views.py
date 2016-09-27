@@ -153,9 +153,26 @@ def pulse():
 	return render_template('pulse.html')
 
 
-@app.route('/email')
-def email():
-	return render_template('email/email.html',user=current_user)
+
+@app.route('/postevent')
+def postevent():
+	form = EventForm()
+	return render_template('eventform.html',form=form)
+
+
+
+@app.route('/postmarket')
+def postmarket():
+	form = MarketForm
+	return render_template('marketform.hmtl',form=form)
+
+
+
+@app.route('/postpulse')
+def postpulse():
+	form = PulseForm()
+	return render_template('pulseform.html',form=form)
+
 
 @app.route('/logout')
 @login_required
