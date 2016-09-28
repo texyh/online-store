@@ -3,7 +3,7 @@
 
  <head>
  	<meta charset="utf-8">
- 	<title>Bootstrap</title>
+ 	<title>Welcome</title>
  	<meta name = "description" content = 'bootstrap'>
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -12,71 +12,201 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="../static/css/main.css">
-
+	<link rel="stylesheet" href="../static/css/font-awesome.css">
  </head>
 
- <body class = "container">
+
+
+
+
+
+ <body>
+
+
+		<nav class="navbar navbar-default">
+		  <div class="container">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand links" href="#">Brand</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    	<ul class="nav navbar-nav navbar-left">
+				    <li class="links"><a href="#"><i class = "#"></i> Market Place</a></li>
+				    <li class="links"><a href="#">Pulse</a></li>
+				    <li class="links"><a href="#">Event</a></li>
+		    	</ul>
+
+
+		      <ul class="nav navbar-nav navbar-right">
+		        <li>
+		        	<button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" id ="signin">Login</button>
+		        </li>
+
+		        <li>
+		        	<button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Register</button>
+		        </li>
+
+		      </ul>
+
+
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+
+
+<!--navbar -->
 
  	{% for messages in get_flashed_messages() %}
-        <div class="alert alert-info">{{ messages }}</div>
+        <div class="alert alert-info container">{{ messages }}</div>
     {% endfor %}
- 	
-<div class="row">
-	
-	<div class = "col-md-4 col-md-offset-4 login">
-		<div class ="writing text-center">
- 		<p id = "writing"></p>
- 		</div>
-		<form class="form-horizontal" action = "/login" method = "POST">
-			{{ form.hidden_tag() }}
-			<div class="form-group">
-				<label for="inputPassword3" class="control-label" id = "writing">Username</label>
-				<div class="input-group">
-				    <span class="input-group-addon"><i class = "glyphicon glyphicon-user custom1"></i></span>
-				    {{form.username(placeholder="Username...",class="form-control", id="inputGroupSuccess1 input" )}}
-				    
-				</div>
-		 	</div>
-
-		 	<div class="form-group">
-		 		<label for="inputPassword3" class="control-label" id = "writing">Password</label>
-			 	<div class="input-group">
-			    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
-			    {{form.password(placeholder="Password...",class=" form-control", id="inputGroupSuccess1 input" )}}
-			    
-			   
-				</div>
-			</div>
 
 
-		 	<div class="form-group">
-		 		{{form.remember_me}} {{form.remember_me.label}} 
-				
-			</div>
+<!--modal -->
 
 
 
-			<div class="form-group">
-				<button class="btn btn-block custom">login</button>
-			</div>
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+		      </div>
+		      <div class="modal-body">
 
-	  	</form>
+		        <form action="/login" method = 'POST' data-toggle="validator">
+		        	{{ form.hidden_tag() }}
+					<div class="form-group">
+						<label for="inputPassword3" class="control-label" id = "writing">{{form.username.label}}</label>
+						<div class="input-group">
+						    <span class="input-group-addon"><i class = "glyphicon glyphicon-user custom1"></i></span>
+						    {{form.username(placeholder="Username...",class="form-control input-lg", id="inputGroupSuccess1 input " )}}
+						    
+						</div>
+				 	</div>
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{form.password.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
+					    {{form.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
+					    
+					   
+						</div>
+					</div>
 
 
-	</div><!--form-->
-</div>
+				 	<div class="form-group text-center">
+				 		<div class="check-inline">
+				 		{{form.remember_me(id="checkbox")}} {{form.remember_me.label}}
+				 		</div>
 
-<div class="row">
-	  	<div class = "col-md-4 col-md-offset-4  ">
-	  	<p class = "text-center" id = "regis">Don't have an account?</p>
-	  	<a href="{{ url_for('registration')}}"><input type ="button" class="btn btn-block register" value="Register"></input></a>
-	  </div>
-</div>
-
+				 		<a class= "forgetp" href="#" style>Forgot password? </a>
+						
+					</div>
 
 
 
+					<div class="form-group">
+						<button class="btn btn-block custom">Login</button>
+					</div>
 
+
+
+		        </form>
+		      </div>
+
+		       
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!--end login modal-->
+
+		<!--register modal-->
+
+
+		<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+		      </div>
+		      <div class="modal-body">
+
+		        <form action="/registration" method = 'POST' data-toggle="validator">
+		        	{{ rform.hidden_tag() }}
+					<div class="form-group">
+						<label for="inputPassword3" class="control-label" id = "writing">{{rform.username.label}}</label>
+						<div class="input-group">
+						    <span class="input-group-addon"><i class = "fa fa-user custom1"></i></span>
+						    {{rform.username(placeholder="eg. kapaski",class="form-control input-lg", id="inputGroupSuccess1 input " )}}
+						    
+						</div>
+				 	</div>
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.email.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "fa fa-inbox custom1"></i></span>
+					    {{rform.email(placeholder="eg. johndoe@example.com",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
+					    
+					   
+						</div>
+					</div>
+
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.password.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
+					    {{rform.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
+					    
+					   
+						</div>
+					</div>
+
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.confirm.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
+					    {{rform.confirm(placeholder="confirm password...",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<button class="btn btn-block custom">Register</button>
+					</div>
+
+
+
+			  	</form>
+
+		       
+		      </div>
+
+		       
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- end register-->
+
+
+
+		<p class= "text-center" id="displaying">Plan</p>
 
 
 
@@ -90,13 +220,8 @@
 
 <script type="text/javascript">
 	$(function(){
-      $("#writing").typed({
-        strings: ["And he blessed him and said,",
-		"“Blessed be Abram by God Most High,",
-		"Possessor of heaven and earth;",
-		"and blessed be God Most High,",
-		"who has delivered your enemies into your hand!”",
-		"And Abram gave him a tenth of everything.<p>(Gen. 14:19–20)</p>"
+      $("#displaying").typed({
+        strings: ["Discover. Earn.","Discover. Earn. Secure."
 		],
         typeSpeed: 0
       });

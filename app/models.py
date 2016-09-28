@@ -76,7 +76,6 @@ class User(db.Model,UserMixin):
 
         
 
-
 class Profile(db.Model):
     __tablename__ = 'profile'
     id = db.Column('id',db.Integer,primary_key=True)
@@ -118,7 +117,7 @@ class Market(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     itemname = db.Column('itemname',db.String,nullable=False)
     description = db.Column('description',db.String,nullable=False)
-    price = db.Column('price',db.String,nullable=False)
+    price = db.Column('price',db.String,nullable=True)
     itemtype = db.Column('itemtype',db.String,nullable=False)
     date = db.Column('date',db.Date,nullable=False)
     time = db.Column('time',db.Time,nullable=False)
@@ -135,6 +134,8 @@ class Market(db.Model):
 
 
 
+
+
 class Event(db.Model):
     __tablename__ = 'event'
 
@@ -142,7 +143,7 @@ class Event(db.Model):
     eventtitle= db.Column('eventtitle',db.String,nullable=False)
     description = db.Column('description',db.String,nullable=False)
     price = db.Column('price',db.String,nullable=False)
-    eventtype = db.Column('itemtype',db.String,nullable=False)
+    eventtype = db.Column('eventtype',db.String,nullable=True,default="")
     date = db.Column('date',db.Date,nullable=False)
     time = db.Column('time',db.Time,nullable=False)
     eventvenue = db.Column('eventvenue',db.String,nullable=False)
@@ -163,11 +164,15 @@ class Event(db.Model):
         self.school = school
 
 
+
+
+
+
 class Pulse(db.Model):
     __tablename__ = 'pulse'
     id = db.Column('id',db.Integer,primary_key=True)
     status = db.Column('status',db.Text,nullable=False)
-    school = db.Column('school'db.String,db.ForeignKey('profile.school'))
+    school = db.Column('school',db.String,db.ForeignKey('profile.school'))
 
     def __init__(self,status,school):
         self.status = status
@@ -175,7 +180,7 @@ class Pulse(db.Model):
 
 
 
-
+db.create_all()
 
 
 

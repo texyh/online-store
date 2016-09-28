@@ -36,6 +36,7 @@ def index():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	form = LoginForm()
+	rform = RegistrationForm()
 	if request.method == 'POST' and form.validate():
 		username =  form.username.data
 		password = form.password.data
@@ -46,12 +47,12 @@ def login():
 			return redirect(request.args.get('next') or url_for('home')) 
 		
 		flash('invalid login details')
-	return render_template('index.html',form=form)
+	return render_template('index.html',form=form,rform=rform)
 
 
 
 
-@app.route('/registration', methods = ['GET','POST'])
+@app.route('/registration', methods = ['POST'])
 def registration():
 	form = RegistrationForm()
 	if request.method == 'POST': 
@@ -72,13 +73,25 @@ def registration():
 			session['username'] = username
 			return redirect(url_for('profile'))
 		flash('username or email already exist')
-	return render_template('registration.html',form=form)
+		return redirect(url_for('login'))
+	#return render_template('registration.html',form=form)
 
-@app.route('/home')
+
+
+
+@app.route('/home',methods=['GET','POST'])
 @login_required
 @check_confirmed
 def home():
-	return render_template('home.html')
+	form = MarketForm()
+	if request.method == 'POST':
+		if form.validate():
+			if form.price.data:
+				return form.price.data
+			return 'not price'
+		flash('Enter all fields')
+		return redirect(url_for('home'))
+	return render_template('home.html',form=form)
 
 
 @app.route('/profile', methods = ['GET','POST'])
@@ -138,40 +151,32 @@ def resend():
 	return redirect(url_for('unconfirmed'))
 
 
-@app.route('/event')
+@app.route('/event', methods=['GET','POST'])
 @login_required
 @check_confirmed
 def event():
-	return render_template('event.html')
+	form = EventForm()
+	if request.method == 'POST':
+		if form.validate():
+			return 'yaaay'
+		flash('Enter all fields')
+		return redirect(url_for('event'))
+	return render_template('event.html',form=form)
 
 
 
-@app.route('/event')
+@app.route('/pulse', methods=['GET','POST'])
 @login_required
 @check_confirmed
 def pulse():
-	return render_template('pulse.html')
-
-
-
-@app.route('/postevent')
-def postevent():
-	form = EventForm()
-	return render_template('eventform.html',form=form)
-
-
-
-@app.route('/postmarket')
-def postmarket():
-	form = MarketForm
-	return render_template('marketform.hmtl',form=form)
-
-
-
-@app.route('/postpulse')
-def postpulse():
 	form = PulseForm()
-	return render_template('pulseform.html',form=form)
+	if request.method == 'POST':
+		return form.status.data
+
+	return render_template('pulse.html',form=form)
+
+
+
 
 
 @app.route('/logout')

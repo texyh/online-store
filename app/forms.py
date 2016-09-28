@@ -1,12 +1,12 @@
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, validators, HiddenField, \
                     SelectField, RadioField, BooleanField, ValidationError, \
-                    TextAreaField
-from wtforms.fields.html5 import DateField
+                    TextAreaField, IntegerField, DateTimeField, SubmitField
+from wtforms.fields.html5 import DateField, DateTimeField
 
 from flask_wtf.file import FileField
 
-from wtforms.validators import Required, Length, Email, EqualTo
+from wtforms.validators import Required, Length, Email, EqualTo, Optional
 
 from datetime import date
 
@@ -18,7 +18,7 @@ from models import *
 class LoginForm(Form):
     username = TextField('username', validators=[Required()])
     password = PasswordField('Password', validators=[Required()])
-    remember_me = BooleanField("keep me logged in")
+    remember_me = BooleanField("Remember me")
 
 
     
@@ -39,7 +39,7 @@ class RegistrationForm(Form):
         validators=[Required('minimum of 6 characters'), Length(min=6, max=25)]
     )
     confirm = PasswordField(
-        're-Password',
+        'comfirm password',
         validators=[
             Required(), EqualTo('password', message='Password must match.')
         ]
@@ -84,32 +84,35 @@ class ProfileForm(Form):
 
 
     entry = DateField(
-        'entry',
+        'Admission Date',
         format='%Y-%m-%d'
 
     )
     
     grad = DateField(
-        'Pick',
+        'Graduation Date',
         format = '%Y-%m-%d'
 
     )
 
 
 
+
+
+
 class MarketForm(Form):
-    mychoice = [('trade','Trade'),('rent','Rent'),('sale','Sale')]
-    item_image = FileField('item_photo')
-    item_name = TextField('itemname',validators=[Required()])
+    mychoice = [(None,'Option'),('trade','Trade'),('rent','Rent'),('sale','Sale')]
+    itemimage = FileField('item_photo')
+    itemname = TextField('Itemname',validators=[Required()])
     description = TextField('Description',validators = [Required()])
-    market_option = RadioField('free',choices=[('free','free')],validators= [Required()])
-    market_type = SelectField('SelectType',choices=mychoice,validators=[Required()])
+    markettype = SelectField('SelectType',choices=mychoice,validators=[Required()])
+    price = IntegerField('price',validators=[Optional()])
 
 
 
 class PulseForm(Form):
-    staus = TextAreaField("whats on your mind",validators=[Required()])
-    status_image = FileField('Add Photo')
+    status = TextAreaField("whats on your mind",validators=[Required()])
+    #status_image = FileField('Add Photo')
 
 
 
@@ -119,8 +122,8 @@ class EventForm(Form):
     eventtitle = TextField('Event Title',validators=[Required()])
     description = TextField('Description',validators = [Required()])
     eventdat = DateField('Event Date',format='%Y-%m-%d')
-    #eventtime = TimeField('Event Time',)
+    eventtime = DateTimeField('Event Time',format='%H:%M:%S')
     eventvenue = TextField('Event Venue',validators=[Required()])
     eventoption = RadioField('free',choices=[('free','free')],validators= [Required()])
     eventtype = SelectField('SelectType',choices=mychoice,validators=[Required()])
-    price = TextField('price',validators=[Required()])
+    price = TextField('price',validators=[Optional()])

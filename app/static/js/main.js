@@ -1,21 +1,13 @@
-function(){
-      $(".writing").typed({
-        strings: ["First sentence.", "Second sentence."],
-        typeSpeed: 0
-      });
-  });
+$(document).ready(function(){
+$('.free').click(function(){
+	$(this).toggleClass("green");
+	$('.price').toggle(500);
 
-
-
-})
+});
 
 
 
 
-{
-	"title":"emeka",
-	"content":"this is me",
-	"content":"this is me",
-	"content":"this is me",
-	"content":"this is me",
-}
+
+
+});

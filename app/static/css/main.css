@@ -1,27 +1,86 @@
 @import 'https://fonts.googleapis.com/css?family=Bad+Script';
+@import 'https://fonts.googleapis.com/css?family=PT+Sans';
 
 
+.shortform{
+    width: 30px
+}
+.forgetp{
+    color:#eb0a2c !important;
+}
+/*.index{
 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+    background: url(../images/feature-bg.jpg) no-repeat ;
+    background-size: cover;  /* For IE8 and earlier 
+}
+*/
+
+.jumbo{
+margin-top: -20px;
+background-color: #12a1ab;
+
+}
+.jt{
+    font-size: 100px;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.links{
+    font-size: 20px;
+    font-family: 'PT Sans', sans-serif;
+    color: white
+}
+.links:hover{
+    background-color: none;
+}
+.footer{
+    background-color: #12a1ab;
+}
+
+#displaying{
+    font-size: 50px;
+    font-family: 'PT Sans', sans-serif;
+}
+#signin{
+    margin-right: 10px;
+}
+a{
+   font-family: 'PT Sans', sans-serif;
+   color: white; 
+}
+a:hover{
+    text-decoration: none;
+}
+.free.green { background-color: #00cc00; }
+
+.rd-btn{
+    background-color:red;
+}
 .login{
-	margin-top:10%;
+	margin-top:5%;
 }
 
 .custom{
 	background-color:#eb0a2c;
 	color:white;
-	font-family:'Bad Script';
+
 	font-size:20px;	
 }
 
 .register{
     background-color:#12a1ab;
     color:white;
-    font-family:'Bad Script';
+    
     font-size:20px;
     
 }
 #regis{
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .gender{
@@ -33,13 +92,16 @@ margin-right: 2050px;
     margin-left: 10px;
 }
 .custom1{
-	color:#eb0a2c;	
+	color:#eb0a2c;
+    font-size: 20px;
+    width: 20px;
+    height: 10px;	
 }
 
 #writing{
 	font-size: 20px;
 	color: #eb0a2c;
-	font-family:'Bad Script'
+	font-family: 'PT Sans', sans-serif;
 }
 /* the mail render */
 #top-section{
