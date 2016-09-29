@@ -85,7 +85,7 @@ class Profile(db.Model):
     graddate = db.Column('graddate',db.Date,nullable=False)
     school = db.Column('school',db.String,nullable=False)
     user_id = db.Column('user_id',db.Integer,db.ForeignKey('users.id'))
-   
+    
     def __init__(self,phonenumber,gender,
                 entrydate,graddate,school,user_id):
         self.phonenumber = phonenumber
@@ -105,5 +105,4 @@ class School(db.Model):
     school = db.Column('school',db.String,db.ForeignKey('profile.school'))
 
 '''
-
 
