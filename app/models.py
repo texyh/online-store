@@ -85,10 +85,7 @@ class Profile(db.Model):
     graddate = db.Column('graddate',db.Date,nullable=False)
     school = db.Column('school',db.String,nullable=False)
     user_id = db.Column('user_id',db.Integer,db.ForeignKey('users.id'))
-    schoolr = db.relationship('Market',backref='profile',lazy='dynamic')
-    schoole = db.relationship('Event',backref='profevent',lazy='dynamic')
-    schoolp = db.relationship('Pulse',backref='profpulse',lazy='dynamic')
-
+   
     def __init__(self,phonenumber,gender,
                 entrydate,graddate,school,user_id):
         self.phonenumber = phonenumber
@@ -108,80 +105,5 @@ class School(db.Model):
     school = db.Column('school',db.String,db.ForeignKey('profile.school'))
 
 '''
-
-
-
-class Market(db.Model):
-    __tablename__ = 'market'
-
-    id = db.Column('id',db.Integer,primary_key=True)
-    itemname = db.Column('itemname',db.String,nullable=False)
-    description = db.Column('description',db.String,nullable=False)
-    price = db.Column('price',db.String,nullable=True)
-    itemtype = db.Column('itemtype',db.String,nullable=False)
-    date = db.Column('date',db.Date,nullable=False)
-    time = db.Column('time',db.Time,nullable=False)
-    school = db.Column('school',db.String,db.ForeignKey('profile.school'))
-
-    def __init__(self,itemname,description,price,itemtype,date,time):
-
-        self.itemname = itemname
-        self.description = description
-        self.price =  price
-        self.itemtype = itemtype
-        self.date = date
-        self.time =time
-
-
-
-
-
-class Event(db.Model):
-    __tablename__ = 'event'
-
-    id = db.Column('id',db.Integer,primary_key=True)
-    eventtitle= db.Column('eventtitle',db.String,nullable=False)
-    description = db.Column('description',db.String,nullable=False)
-    price = db.Column('price',db.String,nullable=False)
-    eventtype = db.Column('eventtype',db.String,nullable=True,default="")
-    date = db.Column('date',db.Date,nullable=False)
-    time = db.Column('time',db.Time,nullable=False)
-    eventvenue = db.Column('eventvenue',db.String,nullable=False)
-    eventoption = db.Column('eventoption',db.Boolean,default=False)
-    school = db.Column('school',db.String,db.ForeignKey('profile.school'))
-
-    def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
-                 eventoption,school):
-
-        self.eventtitle = eventtitle
-        self.description = description
-        self.price =  price
-        self.eventtype = eventtype
-        self.date = date
-        self.time =time
-        self.eventvenue = eventvenue
-        self.eventoption = eventoption
-        self.school = school
-
-
-
-
-
-
-class Pulse(db.Model):
-    __tablename__ = 'pulse'
-    id = db.Column('id',db.Integer,primary_key=True)
-    status = db.Column('status',db.Text,nullable=False)
-    school = db.Column('school',db.String,db.ForeignKey('profile.school'))
-
-    def __init__(self,status,school):
-        self.status = status
-        self.school = school
-
-
-
-db.create_all()
-
-
 
 
