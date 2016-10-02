@@ -25,7 +25,7 @@ def load_user(user_id):
 
 db =  SQLAlchemy(app)
 
-app.config.from_object(os.getenv('APP_SETTINGS'))
+app.config.from_object(os.environ.get('APP_SETTINGS'))
 
 
 bcrypt = Bcrypt(app)

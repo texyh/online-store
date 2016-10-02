@@ -10,8 +10,9 @@ from flask_login import login_required, logout_user, login_user, current_user
 
 app = Flask(__name__)
 
-app.config.from_object(os.getenv('APP_SETTINGS'))
-
+app.config.from_object(os.environ.get('APP_SETTINGS'))
+print (os.environ.get('APP_SETTINGS'))
+#print(os.getenv('APP_SETTINGS'))
 login_manager = LoginManager(app)
 login_manager.session_protection = 'strong'
 login_manager.login_view = '/login'
