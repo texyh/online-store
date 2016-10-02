@@ -32,9 +32,12 @@ background-color: #12a1ab;
 
 .links{
     font-size: 20px;
-    font-family: 'PT Sans', sans-serif;
-    color: white
+      
 }
+.linkss{
+    font-size: 25px;
+}
+
 .links:hover{
     background-color: none;
 }
