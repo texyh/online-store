@@ -143,7 +143,7 @@ class Event(db.Model):
     time = db.Column('time',db.Time,nullable=False)
     eventvenue = db.Column('eventvenue',db.String,nullable=False)
     eventoption = db.Column('eventoption',db.Boolean,default=False)
-    school = db.Column('school',db.String,nullable=False)
+    school = db.Column('school',db.String)
     def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
                  eventoption,school):
 
