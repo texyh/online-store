@@ -86,7 +86,6 @@ class Profile(db.Model):
     school = db.Column('school',db.String,nullable=False)
     user_id = db.Column('user_id',db.Integer,db.ForeignKey('users.id'))
     schoolr = db.relationship('Market',backref='profile',lazy='dynamic')
-    schoole = db.relationship('Event',backref='profevent',lazy='dynamic')
 
     def __init__(self,phonenumber,gender,
                 entrydate,graddate,school,user_id):
@@ -144,8 +143,7 @@ class Event(db.Model):
     time = db.Column('time',db.Time,nullable=False)
     eventvenue = db.Column('eventvenue',db.String,nullable=False)
     eventoption = db.Column('eventoption',db.Boolean,default=False)
-    school = db.Column('school',db.String,db.ForeignKey('profile.school'))
-    profile = db.relationship('Profile')
+    school = db.Column('school',db.String,nullable=False)
     def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
                  eventoption,school):
 
