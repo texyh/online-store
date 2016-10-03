@@ -10,7 +10,7 @@ from wtforms.validators import Required, Length, Email, EqualTo, Optional
 
 from datetime import date
 
-from models import *
+from models import User
 
 
 
