@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 app.config.from_object(os.environ.get('APP_SETTINGS'))
 
-print(app.config['SECRET_KEY'])
+#print(app.config['SECRET_KEY'])
 #print(os.getenv('APP_SETTINGS'))
 login_manager = LoginManager(app)
 login_manager.session_protection = 'strong'
@@ -22,7 +22,7 @@ login_manager.login_view = '/login'
 
 
 from forms import *
-
+#from models import *
 from models import User, Profile, db, bcrypt
 from emails import send_mail
 from decorators import check_confirmed

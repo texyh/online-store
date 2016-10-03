@@ -85,7 +85,9 @@ class Profile(db.Model):
     graddate = db.Column('graddate',db.Date,nullable=False)
     school = db.Column('school',db.String,nullable=False)
     user_id = db.Column('user_id',db.Integer,db.ForeignKey('users.id'))
-    
+    schoolr = db.relationship('Market',backref='profile',lazy='dynamic')
+
+
     def __init__(self,phonenumber,gender,
                 entrydate,graddate,school,user_id):
         self.phonenumber = phonenumber
@@ -106,3 +108,25 @@ class School(db.Model):
 
 '''
 
+
+class Market(db.Model):
+    __tablename__ = 'market'
+
+    id = db.Column('id',db.Integer,primary_key=True)
+    itemname = db.Column('itemname',db.String,nullable=False)
+    description = db.Column('description',db.String,nullable=False)
+    price = db.Column('price',db.String,nullable=True)
+    itemtype = db.Column('itemtype',db.String,nullable=False)
+    date = db.Column('date',db.Date,nullable=False)
+    time = db.Column('time',db.Time,nullable=False)
+    school = db.Column('school',db.String,db.ForeignKey('profile.school'))
+
+    def __init__(self,itemname,description,price,itemtype,date,time,school):
+
+        self.itemname = itemname
+        self.description = description
+        self.price =  price
+        self.itemtype = itemtype
+        self.date = date
+        self.time = time
+        self.school = school

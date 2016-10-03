@@ -12,6 +12,8 @@ from datetime import date
 
 from models import User
 
+#from models import *
+
 
 
 #Login form
