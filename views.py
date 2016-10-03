@@ -23,7 +23,7 @@ login_manager.login_view = '/login'
 
 from forms import *
 
-from models import User, Profile
+from models import User, Profile, db
 from emails import send_mail
 from decorators import check_confirmed
 
