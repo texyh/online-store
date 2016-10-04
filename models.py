@@ -44,7 +44,7 @@ class User(db.Model,UserMixin):
     email = db.Column('email', db.String, nullable=False,unique=True)
     password = db.Column('password',db.String,nullable=False)
     confirmed = db.Column('confirmed',db.Boolean,default=False)
-    prof_rela = db.relationship('Profile',backref='users',lazy='dynamic')
+    prof_rela = db.relationship('Profile',backref='user',lazy='dynamic')
 
     def __init__(self,username,email,password,confirmed):
         
@@ -85,7 +85,6 @@ class Profile(db.Model):
     graddate = db.Column('graddate',db.Date,nullable=False)
     school = db.Column('school',db.String,nullable=False)
     user_id = db.Column('user_id',db.Integer,db.ForeignKey('users.id'))
-    schoolr = db.relationship('Market',backref='profile',lazy='dynamic')
 
     def __init__(self,phonenumber,gender,
                 entrydate,graddate,school,user_id):
@@ -118,7 +117,6 @@ class Market(db.Model):
     itemtype = db.Column('itemtype',db.String,nullable=False)
     date = db.Column('date',db.Date,nullable=False)
     time = db.Column('time',db.Time,nullable=False)
-    school = db.Column('school',db.String,db.ForeignKey('profile.school'))
 
     def __init__(self,itemname,description,price,itemtype,date,time,school):
 
