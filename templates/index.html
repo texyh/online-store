@@ -23,10 +23,10 @@
 
 
 
- <body>
+ <body style="background-color:#eb0a2c">
 
-
-		<nav class="navbar navbar-default">
+ 		<div class="index-top-section">
+		<nav class="navbar">
 		  <div class="container">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
@@ -36,25 +36,18 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand links" href="#">IPRENEUR</a>
+		      <a class="navbar-brand links" href="#">ipreneur</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		    	<ul class="nav navbar-nav navbar-left">
-				    <li class="links"><a href="#"><i class = "#"></i> Market Place</a></li>
-				    <li class="links"><a href="#">Pulse</a></li>
-				    <li class="links"><a href="#">Event</a></li>
-		    	</ul>
-
-
 		      <ul class="nav navbar-nav navbar-right">
 		        <li>
-		        	<button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" id ="signin">Login</button>
+		        	<button type="button" class="btn outline navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" id ="signin">Login</button>
 		        </li>
 
 		        <li>
-		        	<button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Register</button>
+		        	<button type="button" class="btn outline navbar-btn" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Register</button>
 		        </li>
 
 		      </ul>
@@ -71,6 +64,13 @@
         <div class="alert alert-info container">{{ messages }}</div>
     {% endfor %}
 
+    	<div class="mid-section">
+				<p  class= "text-center displaying">Discover. Earn. <span id="displaying"></span></p> 
+
+				<h3 class="text-center college-write">College isn't always fun, making money should be.</h3>
+		</div>
+
+</div><!--top section-->
 
 <!--modal -->
 
@@ -209,7 +209,6 @@
 
 
 
-		<p  class= "text-center"><span id="displaying"></span></p> 
 
 
 
@@ -224,7 +223,7 @@
 <script type="text/javascript">
 	$(function(){
       $("#displaying").typed({
-        strings: ["Discover. Earn.","Discover. Earn. Secure."
+        strings: ["Secure.!!!"
 		],
         typeSpeed: 200
       });

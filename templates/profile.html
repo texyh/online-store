@@ -24,9 +24,10 @@
 
  </head>
 
- <body>
+ <body style="background-color:#12a1ab">
 
- 	<nav class="navbar navbar-default">
+   <div class="profile-top-section">
+ 		<nav class="navbar">
 		  <div class="container">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
@@ -36,115 +37,118 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand links" href="#">Brand</a>
+		      <a class="navbar-brand links" href="#">iprenuer</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		    	<ul class="nav navbar-nav navbar-left">
-				    <li class="links"><a href="#"><i class = "#"></i> Market Place</a></li>
-				    <li class="links"><a href="#">Pulse</a></li>
-				    <li class="links"><a href="#">Event</a></li>
-		    	</ul>
-
-
-
-
-		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
-
+	</div>
 
 <!--navbar -->
 
- 	{% for messages in get_flashed_messages() %}
-        <div class="alert alert-info container">{{ messages }}</div>
-    {% endfor %}
-<div class="jumbotron jumbo">
-<p class="text-center jt">Get the latest offers, gist and upcoming event within your campus</p>
+		 	{% for messages in get_flashed_messages() %}
+		        <div class="alert alert-info container">{{ messages }}</div>
+		    {% endfor %}
+			<div class="jumbotron jumbo">
+				<p class="text-center college-write">Get the latest offers, gist and upcoming event within your campus</p>
+				<p class="text-center college-write">Lets match you where you belong!!!</p>
 
+			</div>
+<div class="profile-form">
+		<div class = "col-md-6 col-md-offset-3 profile-form ">
+				<form class="form-horizontal" action = "{{url_for('profile')}}" method = "post">
+					{{ form.hidden_tag() }}
+
+					<div class="form-group form-input">
+				 		<label for="inputPassword3" class="control-label"id = "writing-profile">School</label>
+
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "fa fa-university custom2"></i></span>
+					    {{form.school(placeholder="School...",class="form-control input-lg", id="inputGroupSuccess1 input" )}}
+						</div>
+						
+					</div>
+
+					<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing-profile">phonenumber</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "fa fa-phone custom2"></i></span>
+					    {{form.phonenumber(placeholder="+234......",class=" form-control input-lg", id="inputGroupSuccess1 input")}}
+						</div>
+						<i><p id="helpblock"  class="text-danger">{{form.phonenumber.errors[0] }}</p></i>
+					</div>
+
+
+		          <div class="form-group">
+
+		                  <div class="row">
+		                    <div class="form-inline">
+		                        <div class="col-md-6">
+			                          <label for="recipient-name" class="control-label" id="writing-profile">{{form.grad.label}}:</label><br>
+			                          <div class="input-group">
+									    <span class="input-group-addon"><i class = "fa fa-calendar custom2"></i></span>
+			                          {{form.grad(class="form-control ")}}
+		                        	</div>
+		                        </div>
+		                    </div>
+		                    <div class="form-inline">
+		                        <div class="col-md-6">
+		                          <label for="recipient-name" class="control-label" id="writing-profile">{{form.entry.label}}:</label>
+		                          <div class="input-group">
+									    <span class="input-group-addon"><i class = "fa fa-calendar custom2"></i></span>
+		                          {{form.entry(class="form-control")}}
+		                      </div>
+		                        </div>
+		                    </div>
+		                  </div>
+		                    
+		          </div>
+		          	<div class="text-center">
+						<div class = "form-group">
+							{{ form.gender.label(id = "writing-profile") }}<br>
+
+							{% for gender in form.gender %}
+							{% if gender.label=='male' %}
+
+							<div class="radio-inline">
+							{{gender(class="btn btn-primary")}} <i class="fa fa-male"></i>{{gender.label(class="radio-profile")}}
+
+							</div>
+							{% else %}
+
+							<div class="radio-inline">
+							{{gender(class="btn btn-primary")}} <i></i>{{gender.label(class="radio-profile")}}
+
+							</div>
+							{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+
+				
+					<div class="form-group">
+						<button class="btn btn-block custom-profile">SignUp</button>
+					</div>
+
+			  	</form>
+			 <p>By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use. Others will be able to find you by email or phone number when provided.</p>
+
+
+		</div>
 </div>
 
-<div class = "col-md-4 col-md-offset-4 ">
-		<form class="form-horizontal" action = "{{url_for('profile')}}" method = "post">
-			{{ form.hidden_tag() }}
-
-			<div class="form-group">
-		 		<label for="inputPassword3" class="control-label" id = "writing">School</label>
-			 	<div class="input-group">
-			    <span class="input-group-addon"><i class = "fa fa-university custom1"></i></span>
-			    {{form.school(placeholder="School...",class="form-control input-lg", id="inputGroupSuccess1 input" )}}
-				</div>
-				
-			</div>
-
-			<div class="form-group">
-		 		<label for="inputPassword3" class="control-label" id = "writing">phonenumber</label>
-			 	<div class="input-group">
-			    <span class="input-group-addon"><i class = "fa fa-phone custom1"></i></span>
-			    {{form.phonenumber(placeholder="+234......",class=" form-control input-lg", id="inputGroupSuccess1 input")}}
-				</div>
-				<i><p id="helpblock"  class="text-danger">{{form.phonenumber.errors[0] }}</p></i>
-			</div>
 
 
-          <div class="form-group">
-
-                  <div class="row">
-                    <div class="form-inline">
-                        <div class="col-md-6">
-	                          <label for="recipient-name" class="control-label">{{form.grad.label}}:</label><br>
-	                          <div class="input-group">
-							    <span class="input-group-addon"><i class = "fa fa-calendar custom1"></i></span>
-	                          {{form.grad(class="form-control ")}}
-                        	</div>
-                        </div>
-                    </div>
-                    <div class="form-inline">
-                        <div class="col-md-6">
-                          <label for="recipient-name" class="control-label">{{form.entry.label}}:</label>
-                          <div class="input-group">
-							    <span class="input-group-addon"><i class = "fa fa-calendar custom1"></i></span>
-                          {{form.entry(class="form-control")}}
-                      </div>
-                        </div>
-                    </div>
-                  </div>
-                    
-          </div>
-          	<div class="text-center">
-				<div class = "form-group">
-					{{ form.gender.label(id = "writing") }}<br>
-
-					{% for gender in form.gender %}
-					{% if gender.label=='male' %}
-
-					<div class="radio-inline">
-					{{gender(class="btn btn-primary")}} <i class="fa fa-male"></i>{{gender.label}}
-
-					</div>
-					{% else %}
-
-					<div class="radio-inline">
-					{{gender(class="btn btn-primary")}} <i></i>{{gender.label}}
-
-					</div>
-					{% endif %}
-					{% endfor %}
-				</div>
-			</div>
-
-		
-			<div class="form-group">
-				<button class="btn btn-block custom">SignUp</button>
-			</div>
-
-	  	</form>
-	 <p>By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use. Others will be able to find you by email or phone number when provided.</p>
 
 
-	</div>
+<div class="footer">
 
+<p class=" footer"></p>
+
+
+
+</div>
 
 
 

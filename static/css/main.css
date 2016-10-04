@@ -1,5 +1,84 @@
 @import 'https://fonts.googleapis.com/css?family=Bad+Script';
 @import 'https://fonts.googleapis.com/css?family=PT+Sans';
+@import 'https://fonts.googleapis.com/css?family=Shrikhand';
+/*index page styles */
+
+.index-top-section{
+    height: 500px;
+    background-color: #eb0a2c;
+    padding-top: 20px
+}
+
+.links{
+font-family: 'Shrikhand', cursive;
+}
+.links:hover{
+    color: white;
+}
+.college-write{
+    font-size: 30px;
+    font-family: 'Shrikhand', cursive;
+    color: white;
+}
+.mid-section{
+     margin-top: 100px;
+
+}
+.btn.outline {
+    background: none;
+    padding: 12px 22px;
+}
+
+.outline {
+    border: 2px solid white;
+    color: white;
+}
+
+.outline:hover{
+    color: #eb0a2c;
+    border-color:white;
+    background-color: white;
+}
+
+
+
+/*index page styles end*/
+
+/*profile page styles end*/
+.profile-top-section{
+    background-color:#12a1ab ;
+    padding-top: 20px
+}
+
+.profile-form{
+    background-color: white;
+    padding-left: 70px;
+    padding-right: 70px;
+    border-radius: 20px;
+    margin-top: -20px;
+
+}
+
+.form-input{
+margin-top: 30px;    
+}
+
+.footer{
+    height: 1000px;
+    color: white;
+}
+
+/*profile page styles end*/
+
+
+
+
+
+
+
+
+
+
 
 
 .shortform{
@@ -25,10 +104,7 @@ margin-top: -20px;
 background-color: #12a1ab;
 
 }
-.jt{
-    font-size: 100px;
-    font-family: 'PT Sans', sans-serif;
-}
+
 
 .links{
     font-size: 20px;
@@ -38,17 +114,21 @@ background-color: #12a1ab;
     font-size: 25px;
 }
 
-.links:hover{
-    background-color: none;
-}
-.footer{
-    background-color: #12a1ab;
-}
+
 
 #displaying{
     font-size: 50px;
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Shrikhand', cursive;
+    color: white;
+
 }
+
+.displaying{
+    font-size: 50px;
+    font-family: 'Shrikhand', cursive;
+    color: white;
+}
+
 #signin{
     margin-right: 10px;
 }
@@ -71,10 +151,14 @@ a:hover{
 .custom{
 	background-color:#eb0a2c;
 	color:white;
-
 	font-size:20px;	
 }
+.custom-profile{
+    background-color:#12a1ab;
+    color:white;
+    font-size:20px; 
 
+}
 .register{
     background-color:#12a1ab;
     color:white;
@@ -106,6 +190,24 @@ margin-right: 2050px;
 	color: #eb0a2c;
 	font-family: 'PT Sans', sans-serif;
 }
+
+#writing-profile{
+    font-size: 20px;
+    color: #12a1ab;
+    font-family: 'PT Sans', sans-serif;
+
+}
+.radio-profile{
+    color: #12a1ab;
+    font-family: 'PT Sans', sans-serif;
+}
+.custom2{
+    color:#12a1ab;
+    font-size: 20px;
+    width: 20px;
+    height: 10px;   
+}
+
 /* the mail render */
 #top-section{
     background-color: #12a1ab;
@@ -115,7 +217,7 @@ margin-right: 2050px;
 
 #below-section{
     background-color: white;
-    height: 200px;
+    height: 100%;
 }
 #email-heading{
     color: gray;
