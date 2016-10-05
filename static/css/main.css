@@ -52,8 +52,8 @@ font-family: 'Shrikhand', cursive;
 
 .profile-form{
     background-color: white;
-    padding-left: 70px;
-    padding-right: 70px;
+    padding-left: 60px;
+    padding-right: 60px;
     border-radius: 20px;
     margin-top: -20px;
 
@@ -69,6 +69,31 @@ margin-top: 30px;
 }
 
 /*profile page styles end*/
+
+/*marketplace page styles end*/
+.nav-market{
+    color:#272527;
+    background-color: #F7F7F8;
+    font-weight: 1000px; 
+    font-size: 15px;  
+}
+.nav-market .navbar-nav > li > a:hover, .nav-market .navbar-nav > li > a:focus {
+    background-color: #F7F7F8;
+    color: #272527;
+
+}
+
+.market-btn{
+background-color: #32625E;
+color: white;
+}
+
+
+
+
+
+
+/*marketplace page styles end*/
 
 
 
@@ -139,7 +164,8 @@ a{
 a:hover{
     text-decoration: none;
 }
-.free.green { background-color: #00cc00; }
+
+.green { background-color: #32625E ; }
 
 .rd-btn{
     background-color:red;

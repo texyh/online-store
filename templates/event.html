@@ -17,7 +17,7 @@
  </head>
 
  <body>
-<nav class="navbar navbar-default">
+<nav class="navbar nav-market">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -27,23 +27,26 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand links" href="#">Brand</a>
+      <a class="navbar-brand nav-market" href="#" style="font-family:'Shrikhand', cursive;">iprenuer</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     	<ul class="nav navbar-nav navbar-left">
-		    <li><a class="links" href="{{url_for('home',username=current_user.username)}}">Market Place</a></li>
-		    <li><a class="links" href="{{url_for('pulse')}}">Pulse</a></li>
-		    <li><a class="links" href="{{url_for('event')}}">Event</a></li>
+		    <li><a href="{{url_for('home',username=current_user.username)}}" class="nav-market"><i class="fa fa-shopping-basket"></i> Market Place</a></li>
+        <li><a  href="{{url_for('pulse',username=current_user.username)}}" class="nav-market"><i class="fa fa-heartbeat"></i> Pulse</a></li>
+        <li><a href="{{url_for('event',username=current_user.username)}}" class="nav-market"><i class="fa fa-gift"></i> Event</a></li>
     	</ul>
 
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a class="links" href="#">Notification <span class="badge">50</span></a></li>
-        <li><a class="links" href="#">Message <span class="badge">50</span></a></li>
+        
+        <li><a  href="#" class="nav-market"><i class="fa fa-bell"></i> Notification <span class="badge">50</span></a></li>
+        
+        <li><a  href="#" class="nav-market"><i class="fa fa-envelope"></i> Message <span class="badge">50</span></a></li>
+        
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.username}}<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle nav-market" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.username}}<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Profile</a></li>
             <li><a href="#">Settings</a></li>
@@ -56,20 +59,11 @@
 
         
         <li>
-          <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">post</button>
+          <button type="button" class="btn navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background-color:#eb0a2c;color:white"><i class="fa fa-send"></i> Share Event</button>
         </li>
         
       </ul>
 
-      <div class="text-center">
-		  <form class="navbar-form navbar-center">
-		    <div class="form-group">
-		      <input type="text" class="form-control" placeholder="Search">
-		    </div>
-		    <button type="submit" class="btn btn-default">Submit</button>
-		  </form>
-  
-  		</div>
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -83,6 +77,18 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+
+
+      <div class="text-center">
+      <form class="navbar-form navbar-center">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+  
+      </div>
+
     <ul class="list-group">
       <li class="list-group-item">
           <div class="media">
@@ -115,7 +121,7 @@
       </div>
       <div class="modal-body">
 
-        <form action="/home" method = 'POST'>
+        <form action="{{url_for('event',username=current_user.username)}}" method = 'POST'>
           {{ form.hidden_tag() }}
 
           <div class="form-group">
@@ -127,24 +133,24 @@
 
                   <div class="row">
                     <div class="form-inline">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-12">
                           <label for="recipient-name" class="control-label">{{form.eventdat.label}}:</label><br>
                           {{form.eventdat(class="form-control")}}
                         </div>
                     </div>
                     <div class="form-inline">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-12">
                           <label for="recipient-name" class="control-label">{{form.eventtime.label}}:</label>
-                          {{form.eventtime(class="form-control")}}
+                          {{form.eventtime(class="form-control",placeholder="H:M:S")}}
                         </div>
                     </div>
                   </div>
                     
           </div>
-
           <div class="form-group ">
-            <p class="btn free">Free?</p>
+            <p class="btn free" style="background-color:#eb0a2c;color:white">Free?</p>
            </div>
+
 
           <div class="form-group price">
             <label for="recipient-name" class="control-label">{{form.price.label}}:
@@ -167,7 +173,7 @@
 
 
 
-           <button class="btn btn-primary">Post</button>
+           <button class="btn" style="background-color:#eb0a2c;color:white">Share Event</button>
         </form>
       </div>
 

@@ -89,8 +89,8 @@ def home(username):
 	if request.method == 'POST':
 		if form.validate():
 			if form.price.data:
-				return form.price.data
-			return 'not price'
+				return "this page is still under construction"
+			return "this page is still under construction"
 		flash('Enter all fields')
 		return redirect(url_for('home',username=current_user.username))
 	return render_template('home.html',form=form)
@@ -165,25 +165,25 @@ def resend():
 
 
 
-@app.route('/event', methods=['GET','POST'])
+@app.route('/event/<username>', methods=['GET','POST'])
 @login_required
 @check_confirmed
-def event():
+def event(username):
 	form = EventForm()
 	if request.method == 'POST':
 		if form.validate():
-			return 'yaaay'
+			return 'this page is still under construction'
 		flash('Enter all fields')
-		return redirect(url_for('event'))
+		return redirect(url_for('event',username=current_user.username))
 	return render_template('event.html',form=form)
 
 
 
 
-@app.route('/pulse', methods=['GET','POST'])
+@app.route('/pulse/<username>', methods=['GET','POST'])
 @login_required
 @check_confirmed
-def pulse():
+def pulse(username):
 	form = PulseForm()
 	if request.method == 'POST':
 		return form.status.data

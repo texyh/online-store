@@ -126,6 +126,6 @@ class EventForm(Form):
     eventdat = DateField('Event Date',format='%Y-%m-%d')
     eventtime = DateTimeField('Event Time',format='%H:%M:%S')
     eventvenue = TextField('Event Venue',validators=[Required()])
-    eventoption = RadioField('free',choices=[('free','free')],validators= [Required()])
+    eventoption = RadioField('free',choices=[('free','free')],validators= [Optional()])
     eventtype = SelectField('SelectType',choices=mychoice,validators=[Required()])
     price = TextField('price',validators=[Optional()])
