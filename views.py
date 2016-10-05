@@ -160,7 +160,7 @@ def resend():
 	subject = "confirm your account"
 	send_mail(current_user.email,subject,html)
 	flash('another link has been sent','success')
-	return redirect(url_for('unconfirmed'))
+	return redirect(url_for('unconfirmed',username=current_user.username))
 
 
 
