@@ -4,15 +4,29 @@ from wtforms import TextField, PasswordField, validators, HiddenField, \
                     TextAreaField, IntegerField, DateTimeField, SubmitField
 from wtforms.fields.html5 import DateField, DateTimeField
 
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 from wtforms.validators import Required, Length, Email, EqualTo, Optional
+
+from flask_uploads import UploadSet, IMAGES, configure_uploads
 
 from datetime import date
 
 #from models import User
 
 from models import *
+
+photos = UploadSet('photos', IMAGES)
+
+
+'''
+class CustomFileField(FileField):
+    def __init__(self, label='', validators=None, _name=None,**kwargs):
+        super(CustomFileField, self).__init__(label, validators, **kwargs)
+        custom_name = 'input4[]'
+        self._name = custom_name
+        self._prefix =''
+'''
 
 
 
@@ -100,11 +114,11 @@ class ProfileForm(Form):
 
 
 
-
-
 class MarketForm(Form):
     mychoice = [(None,'Option'),('trade','Trade'),('rent','Rent'),('sale','Sale')]
-    itemimage = FileField('item_photo')
+    itemimage = FileField('itemphoto',validators=[
+        FileRequired(), FileAllowed(photos, 'Images only!')
+        ])
     itemname = TextField('Itemname',validators=[Required()])
     description = TextField('Description',validators = [Required()])
     markettype = SelectField('SelectType',choices=mychoice,validators=[Required()])

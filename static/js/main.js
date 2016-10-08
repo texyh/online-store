@@ -5,6 +5,8 @@ $('.free').click(function(){
 
 });
 
+$(".input1").fileinput({showCaption: false});
+
 
 
 

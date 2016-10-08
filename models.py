@@ -18,9 +18,6 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
 
 
 db =  SQLAlchemy(app)
@@ -71,6 +68,12 @@ class User(db.Model,UserMixin):
         return True
 
 
+    
+    @login_manager.user_loader
+    def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
 
 
 
@@ -115,17 +118,18 @@ class Market(db.Model):
     description = db.Column('description',db.String,nullable=False)
     price = db.Column('price',db.String,nullable=True)
     itemtype = db.Column('itemtype',db.String,nullable=False)
-    date = db.Column('date',db.Date,nullable=False)
-    time = db.Column('time',db.Time,nullable=False)
+    free = db.Column('free',db.Boolean,default=False)
+    imagename = db.Column('imagename',db.String)
+    school = db.Column('school',db.String)
 
-    def __init__(self,itemname,description,price,itemtype,date,time,school):
+    def __init__(self,itemname,description,price,itemtype,free,imagename,school):
 
         self.itemname = itemname
         self.description = description
         self.price =  price
         self.itemtype = itemtype
-        self.date = date
-        self.time = time
+        self.free = free
+        self.imagename = imagename
         self.school = school
 
 
@@ -141,9 +145,11 @@ class Event(db.Model):
     time = db.Column('time',db.Time,nullable=False)
     eventvenue = db.Column('eventvenue',db.String,nullable=False)
     eventoption = db.Column('eventoption',db.Boolean,default=False)
-    event_school = db.Column('school',db.String)
+    eventschool = db.Column('school',db.String)
+    free = db.Column('free',db.Boolean,default=False)
+    imagename = db.Column('imagename',db.String)
     def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
-                 eventoption,school):
+                 eventoption,school,free,imagename):
 
         self.eventtitle = eventtitle
         self.description = description
@@ -154,3 +160,5 @@ class Event(db.Model):
         self.eventvenue = eventvenue
         self.eventoption = eventoption
         self.school = school
+        self.free = free
+        self.imagename = imagename

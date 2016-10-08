@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, url_for, redirect, \
-				flash, session
+				flash, session, send_from_directory
 import os
 from flask_sqlalchemy import SQLAlchemy
 
+import time
 
 
 from flask_login import LoginManager, UserMixin
 from flask_login import login_required, logout_user, login_user, current_user
+
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 
@@ -24,6 +28,12 @@ from models import *
 #from models import User, Profile, db, bcrypt
 from emails import send_mail
 from decorators import check_confirmed
+
+photos = UploadSet('photos', IMAGES)
+
+
+configure_uploads(app, photos)
+
 
 
 @app.route('/')
@@ -86,11 +96,39 @@ def registration():
 @check_confirmed
 def home(username):
 	form = MarketForm()
+	form.markettype.choices = [(None,'Option'),('trade','Trade'),\
+							('rent','Rent'),('sale','Sale')]
+
 	if request.method == 'POST':
 		if form.validate():
+			itemname = form.itemname.data
+			itemdescription = form.description.data
+			markettype = form.markettype.data
+			price = form.price.data
+			ptime = time.time()
 			if form.price.data:
-				return "this page is still under construction"
-			return "this page is still under construction"
+				filename = secure_filename(form.itemimage.data.filename)
+				filename = str(ptime)+filename
+				form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
+				 filename))
+				market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
+					price=price,free=False,imagename=filename,school=current_user.school)
+				db.session.add(market)
+				db.session.commit
+
+				return 'post successful'
+				
+			else:
+				filename = secure_filename(form.itemimage.data.filename)
+				filename = str(ptime)+filename
+				form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
+				 filename))
+				market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
+					free=True,imagename=filename,school=current_user.school)
+				db.session.add(market)
+				db.session.commit
+
+				return 'post successful'
 		flash('Enter all fields')
 		return redirect(url_for('home',username=current_user.username))
 	return render_template('home.html',form=form)
@@ -102,7 +140,7 @@ def home(username):
 @app.route('/profile', methods = ['GET','POST'])
 def profile():
 	form = ProfileForm()
-	form.school.choices = mychoice = [(None,'Select School'),('ABU Zaria', 'ABU Zaria'), \
+	form.school.choices = [(None,'Select School'),('ABU Zaria', 'ABU Zaria'), \
 						('UniLag', 'UniLag'), ('UniAbuja', 'UniAbuja')]
 	form.gender.choices = [('male','Male'),('female','Female')]
 	if request.method == 'POST':
@@ -190,6 +228,9 @@ def pulse(username):
 
 	return render_template('pulse.html',form=form)
 
+@app.route('/uploaded/<filename>')
+def uploaded(filename):
+	return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],filename)
 
 
 
