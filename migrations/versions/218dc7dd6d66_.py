@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: 132e4b7d1464
+Revision ID: 218dc7dd6d66
 Revises: None
-Create Date: 2016-10-04 09:02:16.761298
+Create Date: 2016-10-09 11:26:34.953571
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '132e4b7d1464'
+revision = '218dc7dd6d66'
 down_revision = None
 
 from alembic import op
@@ -27,6 +27,8 @@ def upgrade():
     sa.Column('eventvenue', sa.String(), nullable=False),
     sa.Column('eventoption', sa.Boolean(), nullable=True),
     sa.Column('school', sa.String(), nullable=True),
+    sa.Column('free', sa.Boolean(), nullable=True),
+    sa.Column('imagename', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('market',
@@ -35,8 +37,9 @@ def upgrade():
     sa.Column('description', sa.String(), nullable=False),
     sa.Column('price', sa.String(), nullable=True),
     sa.Column('itemtype', sa.String(), nullable=False),
-    sa.Column('date', sa.Date(), nullable=False),
-    sa.Column('time', sa.Time(), nullable=False),
+    sa.Column('free', sa.Boolean(), nullable=True),
+    sa.Column('imagename', sa.String(), nullable=True),
+    sa.Column('school', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
