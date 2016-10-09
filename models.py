@@ -22,7 +22,7 @@ from flask import current_app
 
 db =  SQLAlchemy(app)
 
-app.config.from_object(os.environ.get('APP_SETTINGS'))
+# app.config.from_object(os.get_env('APP_SETTINGS','config.DevelopmentConfig'))
 
 
 bcrypt = Bcrypt(app)
@@ -71,7 +71,7 @@ class User(db.Model,UserMixin):
     
     @login_manager.user_loader
     def load_user(user_id):
-    return User.query.get(int(user_id))
+        return User.query.get(int(user_id))
 
 
 
