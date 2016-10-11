@@ -92,25 +92,33 @@
       </form>
   
       </div>
+    {% for each in market %}
 		<ul class="list-group">
 		  <li class="list-group-item">
 		  		<div class="media">
 					<div class="media-left media-middle">
 					    <a href="#">
-					      <img class="uploaded-image" src="{{url_for('uploaded',filename='1475871017.656761DateField.JPG')}}" alt="...">
+					      <img class="uploaded-image" src="{{url_for('uploaded',filename= each.imagename)}}" alt="...">
 					    </a>	
 				  	</div>
 				  <div class="media-body">
-						<h4 class="media-heading">Itemname</h4>
-            <p>itemprice</p>
-            <p>markettype</p>
+						<h4 class="media-heading">{{each.itemname}}</h4>
+
+            {%if each.free %}
             <p class="label label-info">free</p>
+            {% elif each.itemprice %}
+            
+            <p>{{each.itemprice}}</p>
+            {% endif %}
+
+            <p>{{each.itemtype}}</p>
 
 				   </div>
 		  </li>
 
 		  
 		</ul>
+    {% endfor %}
 	</div>	
 </div>
 <!-- end of list of items -->

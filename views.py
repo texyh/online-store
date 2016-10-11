@@ -98,6 +98,7 @@ def home(username):
 	form = MarketForm()
 	form.markettype.choices = [(None,'Option'),('trade','Trade'),\
 							('rent','Rent'),('sale','Sale')]
+	user_school = Profile.query.filter_by(user_id=current_user.id).first()
 
 	if request.method == 'POST':
 		if form.validate():
@@ -106,32 +107,30 @@ def home(username):
 			markettype = form.markettype.data
 			price = form.price.data
 			ptime = time.time()
+			filename = secure_filename(form.itemimage.data.filename)
+			filename = str(ptime)+filename
 			if form.price.data:
-				filename = secure_filename(form.itemimage.data.filename)
-				filename = str(ptime)+filename
 				form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
 				 filename))
 				market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-					price=price,free=False,imagename=filename,school=current_user.school)
+					price=price,free=False,imagename=filename,school=user_school.school)
 				db.session.add(market)
-				db.session.commit
-
-				return 'post successful'
+				db.session.commit()
+				return redirect(url_for('home',username=current_user.username))
 				
 			else:
-				filename = secure_filename(form.itemimage.data.filename)
-				filename = str(ptime)+filename
 				form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
 				 filename))
 				market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-					free=True,imagename=filename,school=current_user.school)
+					price=None,free=True,imagename=filename,school=user_school.school)
 				db.session.add(market)
-				db.session.commit
+				db.session.commit()
+				return redirect(url_for('home',username=current_user.username))
 
-				return 'post successful'
 		flash('Enter all fields')
 		return redirect(url_for('home',username=current_user.username))
-	return render_template('home.html',form=form)
+	market = Market.query.filter_by(school=user_school.school).all()
+	return render_template('home.html',form=form,market=market)
 
 
 
