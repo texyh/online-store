@@ -76,7 +76,6 @@ class User(db.Model,UserMixin):
 
 
 
-
         
 
 class Profile(db.Model):
@@ -159,6 +158,6 @@ class Event(db.Model):
         self.time =time
         self.eventvenue = eventvenue
         self.eventoption = eventoption
-        self.school = school
+        self.eventschool = school
         self.free = free
         self.imagename = imagename
