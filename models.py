@@ -76,6 +76,7 @@ class User(db.Model,UserMixin):
 
 
 
+
         
 
 class Profile(db.Model):
@@ -117,23 +118,19 @@ class Market(db.Model):
     description = db.Column('description',db.String,nullable=False)
     price = db.Column('price',db.String,nullable=True)
     itemtype = db.Column('itemtype',db.String,nullable=False)
-    #free = db.Column('free',db.Boolean,default=False)
-    date = db.Column('date',db.Date,nullable=False)
-    time = db.Column('time',db.Time,nullable=False)
-    #imagename = db.Column('imagename',db.String)
-    #school = db.Column('school',db.String)
+    free = db.Column('free',db.Boolean,default=False)
+    imagename = db.Column('imagename',db.String)
+    school = db.Column('school',db.String)
 
-    def __init__(self,itemname,description,price,itemtype):
+    def __init__(self,itemname,description,price,itemtype,free,imagename,school):
 
         self.itemname = itemname
         self.description = description
         self.price =  price
         self.itemtype = itemtype
-        #self.free = free
-        self.date = date
-        self.time =time
-        #self.imagename = imagename
-        #self.school = school
+        self.free = free
+        self.imagename = imagename
+        self.school = school
 
 
 class Event(db.Model):
@@ -149,10 +146,10 @@ class Event(db.Model):
     eventvenue = db.Column('eventvenue',db.String,nullable=False)
     eventoption = db.Column('eventoption',db.Boolean,default=False)
     eventschool = db.Column('school',db.String)
-    #free = db.Column('free',db.Boolean,default=False)
-    #imagename = db.Column('imagename',db.String)
+    free = db.Column('free',db.Boolean,default=False)
+    imagename = db.Column('imagename',db.String)
     def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
-                 eventoption,school):
+                 eventoption,school,free,imagename):
 
         self.eventtitle = eventtitle
         self.description = description
@@ -163,5 +160,5 @@ class Event(db.Model):
         self.eventvenue = eventvenue
         self.eventoption = eventoption
         self.school = school
-        #self.free = free
-        #self.imagename = imagename
+        self.free = free
+        self.imagename = imagename
