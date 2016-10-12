@@ -105,9 +105,9 @@
 						<h4 class="media-heading">{{each.itemname}}</h4>
 
             {%if each.free %}
-            <p class="label label-info">free</p>
+            <i class="label label-info">free</i>
               {% else %}
-            <p>{{each.itemprice}}</p>
+            {{each.price}}
               {% endif %}
 
             <p>{{each.itemtype}}</p>
