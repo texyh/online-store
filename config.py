@@ -21,7 +21,7 @@ class Config(object):
     # mail accounts
     MAIL_DEFAULT_SENDER = 'onetwotechdemo@gmail.com'
  
-    UPLOADED_PHOTOS_DEST = 'static/images/uploads'
+    UPLOADED_PHOTOS_DEST = os.path.join(basedir,"static", "images", "uploads")
 
     
 class DevelopmentConfig(Config):

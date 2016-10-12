@@ -120,7 +120,7 @@ def home(username):
 				
 			else:
 				form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
-				 filename))
+				filename))
 				market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
 					price=None,free=True,imagename=filename,school=user_school.school)
 				db.session.add(market)
