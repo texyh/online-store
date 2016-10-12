@@ -106,10 +106,9 @@
 
             {%if each.free %}
             <p class="label label-info">free</p>
-            {% elif each.itemprice %}
-            
+              {% else %}
             <p>{{each.itemprice}}</p>
-            {% endif %}
+              {% endif %}
 
             <p>{{each.itemtype}}</p>
 
