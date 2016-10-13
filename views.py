@@ -11,7 +11,7 @@ from flask_login import login_required, logout_user, login_user, current_user
 
 from werkzeug.utils import secure_filename
 
-from flask_dropbox import Dropbox
+#from flask_dropbox import Dropbox
 
 
 app = Flask(__name__)
@@ -24,7 +24,7 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = '/login'
 
 #flask-dropbox
-dropbox = Dropbox(app)
+#dropbox = Dropbox(app)
 
 #cloudinary
 from cloudinary.uploader import upload
