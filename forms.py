@@ -134,11 +134,13 @@ class PulseForm(Form):
 
 class EventForm(Form):
     mychoice = [(None,'Eventype'),('tgif','TGIF'),('religious','Religious'),('academic','Academic')]
-    eventimage = FileField('Add Photo')
+    eventimage = FileField('Add Photo',validators=[
+        FileRequired(), FileAllowed(photos, 'Images only!')
+        ])
     eventtitle = TextField('Event Title',validators=[Required()])
     description = TextField('Description',validators = [Required()])
     eventdat = DateField('Event Date',format='%Y-%m-%d')
-    eventtime = DateTimeField('Event Time',format='%H:%M:%S')
+    eventtime = DateTimeField('Event Time',format='%Y-%m-%d %H:%M:%S')
     eventvenue = TextField('Event Venue',validators=[Required()])
     eventoption = RadioField('free',choices=[('free','free')],validators= [Optional()])
     eventtype = SelectField('SelectType',choices=mychoice,validators=[Required()])

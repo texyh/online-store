@@ -100,58 +100,6 @@ def registration():
 
 
 
-@app.route('/home/<username>',methods=['GET','POST'])
-@login_required
-@check_confirmed
-def home(username):
-    form = MarketForm()
-    form.markettype.choices = [(None,'Option'),('trade','Trade'),\
-                            ('rent','Rent'),('sale','Sale')]
-    user_school = Profile.query.filter_by(user_id=current_user.id).first()
-
-    if request.method == 'POST':
-        if form.validate():
-            itemname = form.itemname.data
-            itemdescription = form.description.data
-            markettype = form.markettype.data
-            price = form.price.data
-            #ptime = time.time()
-            up_file = form.itemimage.data
-            #filename = secure_filename(form.itemimage.data.filename)
-            #filename = str(ptime)+filename
-            #client = dropbox.client
-            if form.price.data:
-                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
-                 #filename))
-                # Actual uploading process
-                #result = client.put_file('/ipreneur_uploads' + filename, file_obj.read())
-                upload_result = upload(up_file)
-                imagename=upload_result['public_id']
-                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-                    price=price,free=False,imagename=imagename,school=user_school.school)
-                db.session.add(market)
-                db.session.commit()
-                return redirect(url_for('home',username=current_user.username))
-                
-            else:
-                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
-                #filename))
-                upload_result = upload(up_file)
-                imagename=upload_result['public_id']
-                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-                    price=None,free=True,imagename=imagename,school=user_school.school)
-                db.session.add(market)
-                db.session.commit()
-                return redirect(url_for('home',username=current_user.username))
-
-        flash('Enter all fields')
-        return redirect(url_for('home',username=current_user.username))
-    market = Market.query.filter_by(school=user_school.school).all()
-    return render_template('home.html',form=form,market=market)
-
-
-
-
 
 @app.route('/profile', methods = ['GET','POST'])
 def profile():
@@ -215,6 +163,60 @@ def resend():
     send_mail(current_user.email,subject,html)
     flash('another link has been sent','success')
     return redirect(url_for('unconfirmed',username=current_user.username))
+
+
+
+@app.route('/home/<username>',methods=['GET','POST'])
+@login_required
+@check_confirmed
+def home(username):
+    form = MarketForm()
+    form.markettype.choices = [(None,'Option'),('trade','Trade'),\
+                            ('rent','Rent'),('sale','Sale')]
+    user_school = Profile.query.filter_by(user_id=current_user.id).first()
+
+    if request.method == 'POST':
+        if form.validate():
+            itemname = form.itemname.data
+            itemdescription = form.description.data
+            markettype = form.markettype.data
+            price = form.price.data
+            #ptime = time.time()
+            up_file = form.itemimage.data
+            #filename = secure_filename(form.itemimage.data.filename)
+            #filename = str(ptime)+filename
+            #client = dropbox.client
+            if form.price.data:
+                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
+                 #filename))
+                # Actual uploading process
+                #result = client.put_file('/ipreneur_uploads' + filename, file_obj.read())
+                upload_result = upload(up_file)
+                imagename=upload_result['public_id']
+                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
+                    price=price,free=False,imagename=imagename,school=user_school.school)
+                db.session.add(market)
+                db.session.commit()
+                return redirect(url_for('home',username=current_user.username))
+                
+            else:
+                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
+                #filename))
+                upload_result = upload(up_file)
+                imagename=upload_result['public_id']
+                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
+                    price=None,free=True,imagename=imagename,school=user_school.school)
+                db.session.add(market)
+                db.session.commit()
+                return redirect(url_for('home',username=current_user.username))
+
+        flash('Enter all fields')
+        return redirect(url_for('home',username=current_user.username))
+    market = Market.query.filter_by(school=user_school.school).all()
+    return render_template('home.html',form=form,market=market)
+
+
+
 
 
 
