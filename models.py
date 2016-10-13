@@ -17,6 +17,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from flask import current_app
 
+from cloudinary.utils import cloudinary_url
+
 
 
 
@@ -132,6 +134,9 @@ class Market(db.Model):
         self.imagename = imagename
         self.school = school
 
+    def image_url(self):
+        result = cloudinary_url(self.imagename, width=200, height=200)
+        return result[0]
 
 class Event(db.Model):
     __tablename__ = 'event'
