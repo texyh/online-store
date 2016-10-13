@@ -154,7 +154,7 @@ class Event(db.Model):
     free = db.Column('free',db.Boolean,default=False)
     imagename = db.Column('imagename',db.String)
     def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
-                 eventoption,school,free,imagename):
+                 eventoption,eventschool,free,imagename):
 
         self.eventtitle = eventtitle
         self.description = description
@@ -164,6 +164,10 @@ class Event(db.Model):
         self.time =time
         self.eventvenue = eventvenue
         self.eventoption = eventoption
-        self.school = school
+        self.eventschool = eventschool
         self.free = free
         self.imagename = imagename
+
+    def image_url(self):
+        result = cloudinary_url(self.imagename, width=200, height=200)
+        return result[0]

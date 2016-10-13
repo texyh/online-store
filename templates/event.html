@@ -88,22 +88,35 @@
       </form>
   
       </div>
-
-    <ul class="list-group">
+    {% for each in event %}
+   <ul class="list-group">
       <li class="list-group-item">
           <div class="media">
           <div class="media-left media-middle">
               <a href="#">
-                <img class="media-object" src="https://scontent-ams3-1.xx.fbcdn.net/v/t1.0-1/p160x160/13508842_10208063141991134_1128396899011991733_n.jpg?_nc_eui2=v1%3AAeEdnCFZ8rDKdIfnMvm9J-4BBO6bY67dR6v8NVUTY7C8i0McEI4S-d9fUAqFXNfs4xy4LR65u7-rOMfAQV0tgOWldC7smvu1Whv4v_WMlrpZVA&oh=fb17d1405deea92231a538880f86bae4&oe=586DF9E6" alt="...">
+                <img class="media-object" src="{{each.image_url()}}" alt="...">
               </a>  
             </div>
           <div class="media-body">
-            <h4 class="media-heading">Media heading</h4>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <h4 class="media-heading">{{ each.eventtitle }}</h4>
+            {{ each.description }}<br>
+            Gate Fee:N{% if each.price %}
+            {{each.price}}<br>
+            {%else%}
+            <i class="label label-info">free</i><br>
+            {% endif %}
+
+            {{ each.eventtype }}<br>
+
+            Date:{{each.date}}<br>
+            Time:{{each.time}}<br>
+            Venue:{{each.eventvenue}}<br>
+            
            </div>
       </li>
 
     </ul>
+    {%endfor%}
   </div>  
 </div>
 <!-- end of list of items -->
@@ -121,7 +134,7 @@
       </div>
       <div class="modal-body">
 
-        <form action="{{url_for('event',username=current_user.username)}}" method = 'POST'>
+        <form action="{{url_for('event',username=current_user.username)}}" method = 'POST' enctype="multipart/form-data">
           {{ form.hidden_tag() }}
 
 
@@ -135,6 +148,12 @@
             {{form.eventtitle(class="form-control", id="recipient-name")}}
           </div>
 
+
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">{{form.description.label}}:</label>
+            {{form.description(class="form-control", id="recipient-name")}}
+          </div>
+          
           <div class="form-group">
 
                   <div class="row">
@@ -156,7 +175,7 @@
           <div class="form-group ">
             <p class="btn free" style="background-color:#eb0a2c;color:white">Free?</p>
            </div>
-
+          
 
           <div class="form-group price">
             <label for="recipient-name" class="control-label">{{form.price.label}}:
@@ -171,12 +190,12 @@
             {{form.eventvenue(class="form-control", id="recipient-name")}}
           </div>
 
-
+          
           <div class="form-group">
             <label for="recipient-name" class="control-label">{{form.eventtype.label}}:</label>
             {{form.eventtype(class="form-control", id="recipient-name")}}
           </div>
-
+          
 
 
            <button class="btn" style="background-color:#eb0a2c;color:white">Share Event</button>

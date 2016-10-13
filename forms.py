@@ -133,7 +133,7 @@ class PulseForm(Form):
 
 
 class EventForm(Form):
-    mychoice = [(None,'Eventype'),('tgif','TGIF'),('religious','Religious'),('academic','Academic')]
+    mychoice = [(None,'Eventype'),('TGIF','TGIF'),('Religious','Religious'),('Academic','Academic')]
     eventimage = FileField('Add Photo',validators=[
         FileRequired(), FileAllowed(photos, 'Images only!')
         ])

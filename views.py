@@ -226,12 +226,45 @@ def home(username):
 @check_confirmed
 def event(username):
     form = EventForm()
+    form.eventtype.choices  = [(None,'Eventype'),('TGIF','TGIF'),\
+    ('Religious','Religious'),('Academic','Academic')]
+    user_school = Profile.query.filter_by(user_id=current_user.id).first()
+    form.eventoption.choices = [('free','free')]
     if request.method == 'POST':
+        up_file = form.eventimage.data
+        eventtitle=form.eventtitle.data
+        description=form.description.data
+        eventdate=form.eventdat.data
+        eventtime=form.eventtime.data.time()
+        eventvenue=form.eventvenue.data
+        eventoption=form.eventoption.data
+        eventtype=form.eventtype.data
+        eventprice=form.price.data
         if form.validate():
-            return 'this page is still under construction'
+            if form.price.data:
+                upload_result = upload(up_file)
+                imagename = upload_result['public_id']
+                event = Event(eventtitle=eventtitle,description=description,price=eventprice,\
+                            eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
+                            eventoptions=eventoption,eventschool=user_school.school,free=False,\
+                            imagename=imagename)
+                db.session.add(event)
+                db.session.commit()
+                return redirect(url_for('event',username=current_user.username))
+            else:
+                upload_result = upload(up_file)
+                imagename = upload_result['public_id']
+                event = Event(eventtitle=eventtile,description=description,price=None,\
+                            eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
+                            eventoption=eventoption,eventschool=user_school.school,free=True,\
+                            imagename=imagename)
+                db.session.add(event)
+                db.session.commit()
+                return redirect(url_for('event',username=current_user.username))
         flash('Enter all fields')
         return redirect(url_for('event',username=current_user.username))
-    return render_template('event.html',form=form)
+    event = Event.query.filter_by(eventschool=user_school.school)
+    return render_template('event.html',form=form,event=event)
 
 
 
