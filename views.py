@@ -243,12 +243,12 @@ def pulse(username):
         return form.status.data
 
     return render_template('pulse.html',form=form)
-
+'''
 @app.route('/uploaded/<filename>')
 def uploaded(filename):
     return cloudinary_url(filename, width=200, height=200)
     #return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],filename)
-
+'''
 
 
 @app.route('/logout')
