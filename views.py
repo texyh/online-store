@@ -246,7 +246,7 @@ def event(username):
                 imagename = upload_result['public_id']
                 event = Event(eventtitle=eventtitle,description=description,price=eventprice,\
                             eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
-                            eventoption=eventoption,eventschool=user_school.school,free=False,\
+                            eventoption=False,eventschool=user_school.school,free=False,\
                             imagename=imagename)
                 db.session.add(event)
                 db.session.commit()
@@ -256,7 +256,7 @@ def event(username):
                 imagename = upload_result['public_id']
                 event = Event(eventtitle=eventtile,description=description,price=None,\
                             eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
-                            eventoption=eventoption,eventschool=user_school.school,free=True,\
+                            eventoption=True,eventschool=user_school.school,free=True,\
                             imagename=imagename)
                 db.session.add(event)
                 db.session.commit()
