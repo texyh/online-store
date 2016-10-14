@@ -171,3 +171,30 @@ class Event(db.Model):
     def image_url(self):
         result = cloudinary_url(self.imagename, width=200, height=200)
         return result[0]
+
+
+class Pulse(db.Model):
+    __tablename__ ='pulse'
+
+    id = db.Column('id',db.Integer,primary_key=True)
+    post = db.Column('post',db.String)
+    school = db.Column('school',db.String)
+    
+
+    def __init__(self,post,school):
+        self.post = post
+        self.school = school
+
+
+class PostComment(db.Model):
+    __tablename__ = 'postcomment'
+    id = db.Column('id',db.Integer,primary_key=True)
+    comment = db.Column('comment',db.String)
+    commentor = db.Column('commentor',db.String)
+
+
+    def __init__(self,comment,commentor):
+        self.comment = comment
+        self.commentor = commentor
+
+

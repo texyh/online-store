@@ -274,10 +274,23 @@ def event(username):
 @check_confirmed
 def pulse(username):
     form = PulseForm()
+    user_school = Profile.query.filter_by(user_id=current_user.id).first()
     if request.method == 'POST':
-        return form.status.data
+        if form.validate:
+            post = form.status.data
+            pulse = Pulse(post=post,school=user_school.school)
+            db.session.add(pulse)
+            db.session.commit()
+            return redirect(url_for('pulse',username=current_user.username))
 
-    return render_template('pulse.html',form=form)
+        flash('enter all fields')
+        return redirect(url_for('pulse',username=current_user.username))
+        
+
+    pulse = Pulse.query.filter_by(school=user_school.school)
+    return render_template('pulse.html',form=form,pulse=pulse)
+
+
 '''
 @app.route('/uploaded/<filename>')
 def uploaded(filename):

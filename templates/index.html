@@ -87,13 +87,19 @@
 		      </div>
 		      <div class="modal-body">
 
-		        <form action="/login" method = 'POST' data-toggle="validator">
+		        <form action="/login" method = 'POST' data-parsley-validate="">
 		        	{{ form.hidden_tag() }}
+		        	<script type="text/javascript">
+		        	var r = []
+		        	</script>
 					<div class="form-group">
 						<label for="inputPassword3" class="control-label" id = "writing">{{form.username.label}}</label>
+
 						<div class="input-group">
+							
 						    <span class="input-group-addon"><i class = "glyphicon glyphicon-user custom1"></i></span>
-						    {{form.username(placeholder="Username...",class="form-control input-lg", id="inputGroupSuccess1 input " )}}
+						    {{form.username(placeholder="Username...",class="form-control input-lg", id="inputGroupSuccess1 input ",required="" )}}
+						   
 						    
 						</div>
 				 	</div>
@@ -102,9 +108,7 @@
 				 		<label for="inputPassword3" class="control-label" id = "writing">{{form.password.label}}</label>
 					 	<div class="input-group">
 					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
-					    {{form.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
-					    
-					   
+					    {{form.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input",required="" )}}
 						</div>
 					</div>
 
@@ -221,6 +225,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <script src="../static/js/typed.js"></script>
+
+<script type="text/javascript" src="../static/js/parsley.js"></script>
 
 <script type="text/javascript">
 	$(function(){
