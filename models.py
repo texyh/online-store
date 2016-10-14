@@ -179,11 +179,13 @@ class Pulse(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     post = db.Column('post',db.String)
     school = db.Column('school',db.String)
-    
+    poster = db.Column('poster',db.String)
 
-    def __init__(self,post,school):
+
+    def __init__(self,post,school,poster):
         self.post = post
         self.school = school
+        self.poster = poster
 
 
 class PostComment(db.Model):
@@ -191,10 +193,11 @@ class PostComment(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     comment = db.Column('comment',db.String)
     commentor = db.Column('commentor',db.String)
-
+    pulseonwer = db.Column('pulseonwer',db.Integer)
 
     def __init__(self,comment,commentor):
         self.comment = comment
         self.commentor = commentor
+        self.pulseonwer = pulseonwer
 
 

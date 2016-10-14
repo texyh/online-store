@@ -278,7 +278,7 @@ def pulse(username):
     if request.method == 'POST':
         if form.validate:
             post = form.status.data
-            pulse = Pulse(post=post,school=user_school.school)
+            pulse = Pulse(post=post,school=user_school.school,poster=current_user.username)
             db.session.add(pulse)
             db.session.commit()
             return redirect(url_for('pulse',username=current_user.username))

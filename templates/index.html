@@ -89,27 +89,26 @@
 
 		        <form action="/login" method = 'POST' data-parsley-validate="">
 		        	{{ form.hidden_tag() }}
-		        	<script type="text/javascript">
-		        	var r = []
-		        	</script>
 					<div class="form-group">
 						<label for="inputPassword3" class="control-label" id = "writing">{{form.username.label}}</label>
 
 						<div class="input-group">
 							
 						    <span class="input-group-addon"><i class = "glyphicon glyphicon-user custom1"></i></span>
-						    {{form.username(placeholder="Username...",class="form-control input-lg", id="inputGroupSuccess1 input ",required="" )}}
+						    {{form.username(placeholder="Username...",class_="form-control input-lg", id="inputGroupSuccess1 input ",required="", **{"data-parsley-errors-container":"#checkbox-errors1" } )}}
 						   
 						    
 						</div>
+						<i id="checkbox-errors1" style="color:red"></i>
 				 	</div>
 
 				 	<div class="form-group">
 				 		<label for="inputPassword3" class="control-label" id = "writing">{{form.password.label}}</label>
 					 	<div class="input-group">
 					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
-					    {{form.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input",required="" )}}
+					    {{form.password(placeholder="Password...",class_=" form-control input-lg", id="inputGroupSuccess1 input",required="" ,**{"data-parsley-errors-container":"#checkbox-errors" } )}}
 						</div>
+						<i id="checkbox-errors"style="color:red" ></i>
 					</div>
 
 
@@ -152,25 +151,28 @@
 		      </div>
 		      <div class="modal-body">
 
-		        <form action="/registration" method = 'POST' data-toggle="validator">
+		        <form action="/registration" method = 'POST' data-parsley-validate="">
 		        	{{ rform.hidden_tag() }}
 					<div class="form-group">
 						<label for="inputPassword3" class="control-label" id = "writing">{{rform.username.label}}</label>
 						<div class="input-group">
 						    <span class="input-group-addon"><i class = "fa fa-user custom1"></i></span>
-						    {{rform.username(placeholder="eg. kapaski",class="form-control input-lg", id="inputGroupSuccess1 input " )}}
+						    {{rform.username(placeholder="eg. kapaski",class="form-control input-lg", id="inputGroupSuccess1 input ",required="",**{"data-parsley-errors-container":"#checkbox-errors2"}  )}}
 						    
 						</div>
+						<i id="checkbox-errors2"style="color:red" ></i>
+
 				 	</div>
 
 				 	<div class="form-group">
 				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.email.label}}</label>
 					 	<div class="input-group">
 					    <span class="input-group-addon"><i class = "fa fa-inbox custom1"></i></span>
-					    {{rform.email(placeholder="eg. johndoe@example.com",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
+					    {{rform.email(placeholder="eg. johndoe@example.com",class=" form-control input-lg", id="inputGroupSuccess1 input",required="",**{"data-parsley-errors-container":"#email","data-parsley-type":"email"} )}}
 					    
 					   
 						</div>
+						<i id="email"style="color:red" ></i>
 					</div>
 
 
@@ -178,10 +180,11 @@
 				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.password.label}}</label>
 					 	<div class="input-group">
 					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
-					    {{rform.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
+					    {{rform.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input pass",required="", **{"data-parsley-errors-container":"#password"} )}}
 					    
 					   
 						</div>
+						<i id="password"style="color:red" ></i>
 					</div>
 
 
@@ -189,8 +192,10 @@
 				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.confirm.label}}</label>
 					 	<div class="input-group">
 					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
-					    {{rform.confirm(placeholder="confirm password...",class=" form-control input-lg", id="inputGroupSuccess1 input" )}}
+					    {{rform.confirm(placeholder="confirm password...",class=" form-control input-lg", id="inputGroupSuccess1 input",required="", **{"data-parsley-errors-container":"#password1"} )}}
 						</div>
+
+						<i id="password1" style="color:red" ></i>
 					</div>
 
 
