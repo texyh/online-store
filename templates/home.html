@@ -141,9 +141,12 @@
         	{{ form.hidden_tag() }}
 
 
-          <div class="form-group ">
-            <label  class="control-label">{{form.itemimage.label}}:</label>
-            {{form.itemimage()}}
+          <div class="form-group text-center ">
+            
+            <div class="fileUpload btn btn-primary">
+            <span class="fa fa-upload" style="font-size:20px"> Upload</span>
+            {{form.itemimage(class="upload")}}
+          </div>
           </div>
 
           <div class="form-group">
