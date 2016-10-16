@@ -101,6 +101,7 @@ class Profile(db.Model):
         self.user_id = user_id
         
 
+#class UserProfile(db.Model):
 
 
 '''
@@ -199,5 +200,7 @@ class PostComment(db.Model):
         self.comment = comment
         self.commentor = commentor
         self.pulseonwer = pulseonwer
+
+
 
 

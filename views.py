@@ -125,7 +125,9 @@ def profile():
     return render_template('profile.html',form=form)
 
 
-
+@app.route('/user/<username>')
+def user(username):
+    return render_template('user.html')
 
 @app.route('/confirm_email/<token>')
 @login_required
