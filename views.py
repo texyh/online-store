@@ -127,9 +127,9 @@ def profile():
 
 @app.route('/user/<username>')
 def user(username):
-    market = Market.query.filter_by(seller=current_user.username)
-    event = Event.query.filter_by(eventposter=current_user.username)
-    pulse = Pulse.query.filter_by(poster=current_user.username)
+    market = Market.query.filter_by(seller=username)
+    event = Event.query.filter_by(eventposter=username)
+    pulse = Pulse.query.filter_by(poster=username)
     return render_template('user.html',market=market,event=event,pulse=pulse)
 
 @app.route('/confirm_email/<token>')

@@ -101,7 +101,7 @@
                     </div>
 
                   <div class="media-body">
-                    <i style="font-size:20px"><strong>{{each.poster}}</strong></i><br>
+                    <a href="{{url_for('user',username=each.poster)}}" style="font-size:20px;color:black"><i ><strong>{{each.poster}}</strong></i></a><br>
                     <span style="font-size:15px">{{each.post}}</span>
                   </div>
           </div>
