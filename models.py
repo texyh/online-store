@@ -147,6 +147,7 @@ class Event(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     eventtitle= db.Column('eventtitle',db.String,nullable=False)
     description = db.Column('description',db.String,nullable=False)
+    price = db.Column('price',db.String)
     eventtype = db.Column('eventtype',db.String,nullable=True,default="")
     date = db.Column('date',db.Date,nullable=False)
     time = db.Column('time',db.Time,nullable=False)
