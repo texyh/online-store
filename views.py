@@ -211,7 +211,7 @@ def home(username):
                 upload_result = upload(up_file)
                 imagename=upload_result['public_id']
                 market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-                    price=None,free=True,imagename=imagename,school=user_school.school)
+                    price=None,free=True,imagename=imagename,school=user_school.school,seller=current_user.username)
                 db.session.add(market)
                 db.session.commit()
                 return redirect(url_for('home',username=current_user.username))
