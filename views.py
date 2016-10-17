@@ -127,7 +127,10 @@ def profile():
 
 @app.route('/user/<username>')
 def user(username):
-    return render_template('user.html')
+    market = Market.query.filter_by(seller=current_user.username)
+    event = Event.query.filter_by(eventposter=current_user.username)
+    pulse = Pulse.query.filter_by(poster=current_user.username)
+    return render_template('user.html',market=market,event=event,pulse=pulse)
 
 @app.route('/confirm_email/<token>')
 @login_required
@@ -196,7 +199,8 @@ def home(username):
                 upload_result = upload(up_file)
                 imagename=upload_result['public_id']
                 market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-                    price=price,free=False,imagename=imagename,school=user_school.school)
+                    price=price,free=False,imagename=imagename,school=user_school.school,\
+                    seller=current_user.username)
                 db.session.add(market)
                 db.session.commit()
                 return redirect(url_for('home',username=current_user.username))
@@ -249,17 +253,17 @@ def event(username):
                 event = Event(eventtitle=eventtitle,description=description,price=eventprice,\
                             eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
                             eventoption=False,eventschool=user_school.school,free=False,\
-                            imagename=imagename)
+                            imagename=imagename,eventposter=current_user.username)
                 db.session.add(event)
                 db.session.commit()
                 return redirect(url_for('event',username=current_user.username))
             else:
                 upload_result = upload(up_file)
                 imagename = upload_result['public_id']
-                event = Event(eventtitle=eventtile,description=description,price=None,\
+                event = Event(eventtitle=eventtitle,description=description,price=None,\
                             eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
                             eventoption=True,eventschool=user_school.school,free=True,\
-                            imagename=imagename)
+                            imagename=imagename,eventposter=current_user.username)
                 db.session.add(event)
                 db.session.commit()
                 return redirect(url_for('event',username=current_user.username))

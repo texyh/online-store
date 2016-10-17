@@ -124,8 +124,9 @@ class Market(db.Model):
     free = db.Column('free',db.Boolean,default=False)
     imagename = db.Column('imagename',db.String)
     school = db.Column('school',db.String)
+    seller = db.Column('seller',db.String)
 
-    def __init__(self,itemname,description,price,itemtype,free,imagename,school):
+    def __init__(self,itemname,description,price,itemtype,free,imagename,school,seller):
 
         self.itemname = itemname
         self.description = description
@@ -134,6 +135,7 @@ class Market(db.Model):
         self.free = free
         self.imagename = imagename
         self.school = school
+        self.seller = seller
 
     def image_url(self):
         result = cloudinary_url(self.imagename, width=200, height=200)
@@ -154,8 +156,9 @@ class Event(db.Model):
     eventschool = db.Column('school',db.String)
     free = db.Column('free',db.Boolean,default=False)
     imagename = db.Column('imagename',db.String)
+    eventposter  = db.Column('Eventposter',db.String)
     def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
-                 eventoption,eventschool,free,imagename):
+                 eventoption,eventschool,free,imagename,eventposter):
 
         self.eventtitle = eventtitle
         self.description = description
@@ -168,6 +171,7 @@ class Event(db.Model):
         self.eventschool = eventschool
         self.free = free
         self.imagename = imagename
+        self.eventposter  = eventposter 
 
     def image_url(self):
         result = cloudinary_url(self.imagename, width=200, height=200)
