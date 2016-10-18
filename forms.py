@@ -119,7 +119,7 @@ class MarketForm(Form):
     itemimage = FileField('itemphoto',validators=[
         FileRequired(), FileAllowed(photos, 'Images only!')
         ])
-    itemname = TextField('Itemname',validators=[Required()])
+    itemname = TextField('Itemname',validators=[Optional()])
     description = TextField('Description',validators = [Required()])
     markettype = SelectField('SelectType',choices=mychoice,validators=[Required()])
     price = IntegerField('price',validators=[Optional()])

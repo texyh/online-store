@@ -120,7 +120,6 @@ class Market(db.Model):
     itemname = db.Column('itemname',db.String,nullable=False)
     description = db.Column('description',db.String,nullable=False)
     price = db.Column('price',db.String,nullable=True)
-    itemtype = db.Column('itemtype',db.String,nullable=False)
     free = db.Column('free',db.Boolean,default=False)
     imagename = db.Column('imagename',db.String)
     school = db.Column('school',db.String)

@@ -101,37 +101,29 @@
 
 <div id="tabs-1">
   <div class="row">
-  <div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
-
-    {% for each in market %}
-    <ul class="list-group">
-      <li class="list-group-item">
-          <div class="media">
-          <div class="media-left media-middle">
-              <a href="#">
-                <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
-              </a>  
-            </div>
-          <div class="media-body">
-            <h4 class="media-heading">{{each.itemname}}</h4>
+      {% for each in market %}
+  <div class="col-sm-6 col-md-3">
+    <div class="thumbnail">
+      <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
+      <hr style="margin-bottom:-10px">
+      <div class="caption">
+        <h3>{{each.itemname}}</h3>
+        <p>{{each.description}}</p>
 
             {%if each.free %}
             <i class="label label-info">free</i>
               {% else %}
             {{each.price}}
               {% endif %}
-
-            <p>{{each.itemtype}}</p>
-
-           </div>
-      </li>
-
-      
-    </ul>
-    {% endfor %}
-  </div>  
+        <p>{{each.itemtype}}</p>
+        
+        <a href="#" class="btn btn-success" role="button">BUY</a></p>
+        <p><i class="label" style="background-color:#004d40">Seller:</i><a href="{{url_for('user',username=each.seller)}}" style="color:#01579b"> <i><strong>{{each.seller}}</strong></i></a></p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-
 </div>
 
 

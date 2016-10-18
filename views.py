@@ -219,7 +219,11 @@ def home(username):
         flash('Enter all fields')
         return redirect(url_for('home',username=current_user.username))
     market = Market.query.filter_by(school=user_school.school).all()
-    return render_template('home.html',form=form,market=market)
+    trade = Market.query.filter_by(itemtype='trade',school=user_school.school).all()
+    rent = Market.query.filter_by(itemtype='rent',school=user_school.school).all()
+    sale = Market.query.filter_by(itemtype='sale',school=user_school.school).all()
+
+    return render_template('home.html',form=form,market=market,trade=trade,sale=sale,rent=rent)
 
 
 
