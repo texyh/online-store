@@ -96,10 +96,11 @@
                 <h3>{{ each.eventtitle }}</h3>
                 <p>{{each.description}}</p>
                 {% if each.price %}
-                  <span class="fa fa-money"></span>{{each.price}}<br>
+                  <p><span class="fa fa-money"></span>{{each.price}}
                 {%else%}
-                <i class="label label-info">free</i><br>
+                <i class="label label-info">free</i></p>
                 {% endif %}
+
                 <div style="display:inline">
                     
                       <span class="fa fa-calendar-check-o"></span><i class=""> {{each.date}}</i>
