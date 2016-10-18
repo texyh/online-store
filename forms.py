@@ -115,11 +115,11 @@ class ProfileForm(Form):
 
 
 class MarketForm(Form):
-    mychoice = [(None,'Option'),('trade','Trade'),('rent','Rent'),('sale','Sale')]
+    mychoice = [(None,'Option'),('trade','Trade'),('rent','Rent'),('sale','Sale'),('free','Free')]
     itemimage = FileField('itemphoto',validators=[
         FileRequired(), FileAllowed(photos, 'Images only!')
         ])
-    itemname = TextField('Itemname',validators=[Optional()])
+    itemname = TextField('Itemname',validators=[Required()])
     description = TextField('Description',validators = [Required()])
     markettype = SelectField('SelectType',choices=mychoice,validators=[Required()])
     price = IntegerField('price',validators=[Optional()])

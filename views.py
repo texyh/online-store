@@ -177,7 +177,7 @@ def resend():
 def home(username):
     form = MarketForm()
     form.markettype.choices = [(None,'Option'),('trade','Trade'),\
-                            ('rent','Rent'),('sale','Sale')]
+                            ('rent','Rent'),('sale','Sale'),('free','Free')]
     user_school = Profile.query.filter_by(user_id=current_user.id).first()
 
     if request.method == 'POST':
@@ -222,8 +222,8 @@ def home(username):
     trade = Market.query.filter_by(itemtype='trade',school=user_school.school).all()
     rent = Market.query.filter_by(itemtype='rent',school=user_school.school).all()
     sale = Market.query.filter_by(itemtype='sale',school=user_school.school).all()
-
-    return render_template('home.html',form=form,market=market,trade=trade,sale=sale,rent=rent)
+    freee = Market.query.filter_by(itemtype='free',school=user_school.school).all()
+    return render_template('home.html',form=form,market=market,trade=trade,sale=sale,rent=rent,freee=freee)
 
 
 

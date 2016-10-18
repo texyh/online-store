@@ -80,6 +80,10 @@
 
 <!--navbar -->
 
+  {% for messages in get_flashed_messages() %}
+        <div class="alert alert-info container">{{ messages }}</div>
+    {% endfor %}
+
 <!--tabs-->
 <div id="tabs" class="container">
   <ul>
@@ -137,7 +141,7 @@
                           {% else %}
                         <i class="label" style="background-color:#bf360c">Price </i> {{each.price}}
                           {% endif %}
-                    <p>{{each.itemtype}}</p>
+                    
                     
                     
                     <p><i class="label" style="background-color:#004d40">Seller:</i><a href="{{url_for('user',username=each.seller)}}" style="color:#01579b"> <i><strong>{{each.seller}}</strong></i></a></p>
@@ -216,7 +220,7 @@
   <div id="tabs-5">
             
             <div class="row">
-                  {% for each in free %}
+                  {% for each in freee %}
               <div class="col-sm-6 col-md-3">
                 <div class="thumbnail">
                   <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
@@ -250,9 +254,6 @@
 
 
 
- 	{% for messages in get_flashed_messages() %}
-        <div class="alert alert-info container">{{ messages }}</div>
-    {% endfor %}
 <!-- list of items-->
 <!-- end of list of items -->
 
