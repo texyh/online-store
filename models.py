@@ -178,6 +178,8 @@ class Event(db.Model):
         return result[0]
 
 
+
+
 class Pulse(db.Model):
     __tablename__ ='pulse'
 
@@ -191,6 +193,8 @@ class Pulse(db.Model):
         self.post = post
         self.school = school
         self.poster = poster
+
+
 
 
 class PostComment(db.Model):
@@ -207,4 +211,13 @@ class PostComment(db.Model):
 
 
 
+class PulseLikes(db.Model):
+    __tablename__ = "pulselikes"
+    id = db.Column('id',db.Integer,primary_key=True)
+    pulseonwer = db.Column('pulseonwer',db.Integer)
+    likers = db.Column('likers',db.String)
+
+    def __init__(self,pulseonwer,likers):
+        self.pulseonwer = pulseonwer
+        self.likers = likers
 
