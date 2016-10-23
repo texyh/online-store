@@ -187,12 +187,17 @@ class Pulse(db.Model):
     post = db.Column('post',db.String)
     school = db.Column('school',db.String)
     poster = db.Column('poster',db.String)
+    likes = db.Column('likes',db.Integer)
 
 
     def __init__(self,post,school,poster):
         self.post = post
         self.school = school
         self.poster = poster
+        self.likes = likes
+
+    def likes(self):
+        return self.likes
 
 
 
@@ -216,10 +221,11 @@ class PulseLikes(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     pulseonwer = db.Column('pulseonwer',db.Integer)
     likers = db.Column('likers',db.String)
-    likes = db.Column('likes',db.Integer)
+    
 
     def __init__(self,pulseonwer,likers,likes):
         self.pulseonwer = pulseonwer
         self.likers = likers
-        self.likes = likes
+        
+
 

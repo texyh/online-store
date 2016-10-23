@@ -313,17 +313,19 @@ def like():
     if liked:
         return 'no'
     else:
-        p = PulseLikes.query.filter_by(pulseonwer=id).first()
+        p = Pulse.query.get(id)
         if p is None:
-            new_like = PulseLikes(pulseonwer=id,likers=current_user.username,likes=1)
-            db.session.add(new_like)
+            new_like = PulseLikes(pulseonwer=id,likers=current_user.username)
+            p.likes = 1
+            db.session.add(new_like, p)
             db.session.commit()
             return 'yes'
         else:
             #import pdb
             #pdb.set_trace()
+            new_like = PulseLikes(pulseonwer=id,likers=current_user.username)
             p.likes +=1
-            db.session.add(p)
+            db.session.add(new_like, p)
             db.session.commit()
             return 'yes'
 
