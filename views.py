@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, \
-                flash, session, send_from_directory
+                flash, session, send_from_directory, jsonify
 import os
 from flask_sqlalchemy import SQLAlchemy
 
@@ -295,10 +295,40 @@ def pulse(username):
 
         flash('enter all fields')
         return redirect(url_for('pulse',username=current_user.username))
-        
-
     pulse = Pulse.query.filter_by(school=user_school.school)
-    return render_template('pulse.html',form=form,pulse=pulse)
+    likes = PulseLikes.query.all()
+    #count = PulseLikes.query.count()
+    
+    likers = [x.likers for x in likes]
+    return render_template('pulse.html',form=form,pulse=pulse,likes=likes,\
+        likers=likers)
+
+
+
+@app.route('/like',methods=['POST','GET'])
+@login_required
+def like():
+    id = request.form['id']
+    liked = PulseLikes.query.filter_by(pulseonwer=id,likers=current_user.username).first()
+    if liked:
+        return 'no'
+    else:
+        p = PulseLikes.query.filter_by(pulseonwer=id).first()
+        if p is None:
+            new_like = PulseLikes(pulseonwer=id,likers=current_user.username,likes=1)
+            db.session.add(new_like)
+            db.session.commit()
+            return 'yes'
+        else:
+            #import pdb
+            #pdb.set_trace()
+            p.likes +=1
+            db.session.add(p)
+            db.session.commit()
+            return 'yes'
+
+
+
 
 
 '''
@@ -307,6 +337,8 @@ def uploaded(filename):
     return cloudinary_url(filename, width=200, height=200)
     #return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],filename)
 '''
+
+
 
 
 @app.route('/logout')

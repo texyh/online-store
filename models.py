@@ -216,8 +216,10 @@ class PulseLikes(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     pulseonwer = db.Column('pulseonwer',db.Integer)
     likers = db.Column('likers',db.String)
+    likes = db.Column('likes',db.Integer)
 
-    def __init__(self,pulseonwer,likers):
+    def __init__(self,pulseonwer,likers,likes):
         self.pulseonwer = pulseonwer
         self.likers = likers
+        self.likes = likes
 

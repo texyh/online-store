@@ -108,13 +108,39 @@
           </a>
           <hr style="margin-bottom:5px">
           <div style="display:inline" class="text-center">
-    
-            <a href="#" style="color:black;font-size:17px"><i class="fa fa-comment"></i> Comment</a>
-            <a href="#" style="color:black;margin-left:70px;font-size:20px"><i class="fa fa-heart-o"></i> Like</a>
-            <a href="#" style="color:black;margin-left:70px;font-size:20px"><i class="fa fa-retweet"></i> Re-post</a>
           
+            <a href="#" style="color:#4a148c;font-size:12px" value='{{each.id}}' id="comment"><i class="fa fa-comment" value='{{each.id}}'></i> Comment</a>
+
+            <a href="#" style="{%if current_user.username in likers %}color:black;margin-left:70px;font-size:12px{%else%}color:red;margin-left:70px;font-size:12px{%endif%}" value='{{each.id}}' id="like"><i class="fa fa-heart"></i> Like</a>
+
+            <a href="#" style="color:#00c853;margin-left:70px;font-size:12px" value='{{each.id}}'><i class="fa fa-retweet"></i> Re-post</a>
+        
           </div>
-          <hr style="margin-top:5px">
+          <div class="dummy" style="
+          color:black;"></div>
+          <hr style="margin-top:5px;margin-bottom:5px">
+            <div class="pulse-reaction">
+                    <i class="fa fa-heart {{each.id}}" style="color:red;"></i> <span class="figure-{{each.id}}">
+
+                    {{count}}</span> {% if count < 1 %} like{% else %} likes{% endif%}
+
+                    <i class="fa fa-comment" style="color:#4a148c;margin-left:20px"></i> <span id ="fc">3 </span>  comments
+                    <i class="fa fa-retweet" style="color:#00c853;margin-left:20px"></i> 6 reposts
+                  <hr style="margin-top:5px">
+                  <form class="" hidden>
+                        <div class="form-group">
+                        <input type="text" class="form-control comment-box" placeholder="write you comment">
+                        </div>
+                        <button type="submit" class="btn btn-default post-comment">post</button>
+                        <hr style="margin-top:5px">
+                  </form>
+                <div class='comments'>
+                    
+                     <p><em>{{each.poster}}</em> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan ex at est tincidunt, ac ornare arcu blandit. Phasellus rutrum euismod mauris sit amet efficitur. Aenean feugiat condimentum ipsum a tempus. Curabitur sit amet elementum erat, in porta lectus. Aliquam pharetra varius interdum. Maecenas porta elit nisi. Morbi suscipit auctor egestas</p>
+                 </div>
+          </div>
+
+
 
         
 
@@ -165,6 +191,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="../static/js/jquery-ui.js"></script>
+<script src="../static/js/main.js"></script>
  </body>
 
  </html>
