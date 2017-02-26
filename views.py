@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, \
-                flash, session, send_from_directory, jsonify
+            flash, session, send_from_directory, jsonify
 import os
 from flask_sqlalchemy import SQLAlchemy
 
@@ -15,8 +15,9 @@ from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
+app.config.from_object(os.getenv('APP_SETTINGS', 'config.DevelopmentConfig'))
 
-app.config.from_object(os.environ.get('APP_SETTINGS'))
+# app.config.from_object(os.environ.get('APP_SETTINGS'))
 
 #flask-login
 login_manager = LoginManager(app)
@@ -30,8 +31,6 @@ login_manager.login_view = '/login'
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
 
-
-
 from forms import *
 from models import *
 #from models import User, Profile, db, bcrypt
@@ -44,16 +43,13 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 
 
-
 @app.route('/')
 @login_required
 def index():
-    return redirect(url_for('home',username=current_user.username))
-
-   
+    return redirect(url_for('home', username=current_user.username))
 
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     rform = RegistrationForm()
@@ -130,7 +126,6 @@ def user(username):
     market = Market.query.filter_by(seller=username)
     event = Event.query.filter_by(eventposter=username)
     pulse = Pulse.query.filter_by(poster=username)
-    return render_template('user.html',market=market,event=event,pulse=pulse)
 
 @app.route('/confirm_email/<token>')
 @login_required
@@ -154,7 +149,6 @@ def unconfirmed(username):
     if current_user.confirmed:
         return redirect(url_for('home',username=current_user.username))
     return render_template('unconfirmed.html')
-
 
 
 
@@ -227,11 +221,7 @@ def home(username):
 
 
 
-
-
-
-
-@app.route('/event/<username>', methods=['GET','POST'])
+@app.route('/event/<username>', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
 def event(username):
@@ -278,8 +268,7 @@ def event(username):
 
 
 
-
-@app.route('/pulse/<username>', methods=['GET','POST'])
+@app.route('/pulse/<username>', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
 def pulse(username):
@@ -339,8 +328,6 @@ def uploaded(filename):
     return cloudinary_url(filename, width=200, height=200)
     #return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],filename)
 '''
-
-
 
 
 @app.route('/logout')

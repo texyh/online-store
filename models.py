@@ -24,7 +24,7 @@ from cloudinary.utils import cloudinary_url
 
 db =  SQLAlchemy(app)
 
-app.config.from_object(os.environ.get('APP_SETTINGS'))
+# app.config.from_object(os.get_env('APP_SETTINGS','config.DevelopmentConfig'))
 
 
 bcrypt = Bcrypt(app)
