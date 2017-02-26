@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+ <html lang = 'en'>
+
+ <head>
+ 	<meta charset="utf-8">
+ 	<title>Welcome</title>
+ 	<meta name = "description" content = 'bootstrap'>
+ 	<!-- Latest compiled and minified CSS -->
+ 	<link rel="stylesheet" href="../static/css/font-awesome.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+
+	<link rel="stylesheet" href="../static/css/main.css">
+	
+
+
+	<link rel="shortcut icon" href="../static/images/favicon/favicon.png">
+ </head>
+
+
+
+
+
+
+ <body>
+
+ 		<div class="index-top-section">
+		<nav class="navbar">
+		  <div class="container">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand links" href="#">ipreneur</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav navbar-right">
+		        <li>
+		        	<button type="button" class="btn outline navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" id ="signin">Login</button>
+		        </li>
+
+		        <li>
+		        	<button type="button" class="btn outline navbar-btn" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Register</button>
+		        </li>
+
+		      </ul>
+
+
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+
+
+<!--navbar -->
+
+ 	{% for messages in get_flashed_messages() %}
+        <div class="alert alert-info container">{{ messages }}</div>
+    {% endfor %}
+
+    	<div class="mid-section">
+				<p  class= "text-center displaying">Discover. Earn. <span id="displaying"></span></p> 
+
+				<h3 class="text-center college-write">College isn't always fun, making money should be.</h3>
+		</div>
+
+</div><!--top section-->
+<section class="">
+<div class="jumbotron "style ="background-color:white">
+	<div class="container">
+	<h2 class="text-center">WHAT WE DO</h2>
+	<div class="row">
+		<div class="col-md-4 text-center">
+			<span class="fa fa-lock" style ="font-size:100px;"></span>
+			<h4 class="text-center">Lorem Ipsum</h4>
+			<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan ex at est tincidunt, ac ornare arcu blandit. Phasellus rutrum euismod mauris sit amet efficitur. Aenean feugiat condimentum ipsum a tempus. Curabitur sit amet elementum erat, in porta lectus. Aliquam pharetra varius interdum. Maecenas porta elit nisi. Morbi suscipit auctor egestas.</p>
+
+
+		</div>
+
+		<div class="col-md-4 text-center">
+			<span class="fa fa-graduation-cap" style ="font-size:100px;"></span>
+			<h4 class="text-center">Lorem Ipsum</h4>
+			<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan ex at est tincidunt, ac ornare arcu blandit. Phasellus rutrum euismod mauris sit amet efficitur. Aenean feugiat condimentum ipsum a tempus. Curabitur sit amet elementum erat, in porta lectus. Aliquam pharetra varius interdum. Maecenas porta elit nisi. Morbi suscipit auctor egestas.</p>
+
+
+		</div>
+
+		<div class="col-md-4 text-center">
+			<span class="fa fa-money" style ="font-size:100px;"></span>
+			<h4 class="text-center">Lorem Ipsum</h4>
+			<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan ex at est tincidunt, ac ornare arcu blandit. Phasellus rutrum euismod mauris sit amet efficitur. Aenean feugiat condimentum ipsum a tempus. Curabitur sit amet elementum erat, in porta lectus. Aliquam pharetra varius interdum. Maecenas porta elit nisi. Morbi suscipit auctor egestas.</p>
+
+
+		</div>
+
+
+	</div>
+
+
+</div>
+</div>
+</section>
+
+
+<section class="cotainer " style="height:200px;background-color:white;margin-top:-30px;padding-top:30px">
+	<div class="row text-center" style="padding-top:30px">
+		<h2>SUPPORT AND AWARDS</h2>
+		<div class="col-md-3">
+			<img src="https://www.tuteria.com/static/img/press/forbes.png" style="height:50px;width:200px;margin-top:50px">
+
+		</div>
+
+		<div class="col-md-3">
+			<img src="https://www.tuteria.com/static/img/press/channels.png" style="height:50px;width:200px;margin-top:50px">
+
+		</div>
+
+		<div class="col-md-3">
+			<img src="https://www.tuteria.com/static/img/press/techcabal.png" style="height:50px;width:200px;margin-top:50px">
+
+		</div>
+
+		<div class="col-md-3">
+			<img src="https://www.tuteria.com/static/img/press/microsoft.png" style="height:50px;width:200px;margin-top:50px">
+
+		</div>
+		
+
+
+
+
+
+	</div>
+</section>
+
+
+
+<!--modal -->
+
+
+
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title text-center" id="exampleModalLabel">Login</h4>
+		      </div>
+		      <div class="modal-body">
+
+		        <form action="/login" method = 'POST' data-parsley-validate="">
+		        	{{ form.hidden_tag() }}
+					<div class="form-group">
+						<label for="inputPassword3" class="control-label" id = "writing">{{form.username.label}}</label>
+
+						<div class="input-group">
+							
+						    <span class="input-group-addon"><i class = "glyphicon glyphicon-user custom1"></i></span>
+						    {{form.username(placeholder="Username...",class_="form-control input-lg", id="inputGroupSuccess1 input ",required="", **{"data-parsley-errors-container":"#checkbox-errors1" } )}}
+						   
+						    
+						</div>
+						<i id="checkbox-errors1" style="color:red"></i>
+				 	</div>
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{form.password.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
+					    {{form.password(placeholder="Password...",class_=" form-control input-lg", id="inputGroupSuccess1 input",required="" ,**{"data-parsley-errors-container":"#checkbox-errors" } )}}
+						</div>
+						<i id="checkbox-errors"style="color:red" ></i>
+					</div>
+
+
+				 	<div class="form-group text-center">
+				 		<div class="check-inline">
+				 		{{form.remember_me(id="checkbox")}} {{form.remember_me.label}}
+				 		</div>
+
+				 		<a class= "forgetp" href="#" style>Forgot password? </a>
+						
+					</div>
+
+
+
+					<div class="form-group">
+						<button class="btn btn-block custom">Login</button>
+					</div>
+
+
+
+		        </form>
+		      </div>
+
+		       
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!--end login modal-->
+
+		<!--register modal-->
+
+
+		<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title text-center" id="exampleModalLabel">Register</h4>
+		      </div>
+		      <div class="modal-body">
+
+		        <form action="/registration" method = 'POST' data-parsley-validate="">
+		        	{{ rform.hidden_tag() }}
+					<div class="form-group">
+						<label for="inputPassword3" class="control-label" id = "writing">{{rform.username.label}}</label>
+						<div class="input-group">
+						    <span class="input-group-addon"><i class = "fa fa-user custom1"></i></span>
+						    {{rform.username(placeholder="eg. kapaski",class="form-control input-lg", id="inputGroupSuccess1 input ",required="",**{"data-parsley-errors-container":"#checkbox-errors2"}  )}}
+						    
+						</div>
+						<i id="checkbox-errors2"style="color:red" ></i>
+
+				 	</div>
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.email.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "fa fa-inbox custom1"></i></span>
+					    {{rform.email(placeholder="eg. johndoe@example.com",class=" form-control input-lg", id="inputGroupSuccess1 input",required="",**{"data-parsley-errors-container":"#email","data-parsley-type":"email"} )}}
+					    
+					   
+						</div>
+						<i id="email"style="color:red" ></i>
+					</div>
+
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.password.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
+					    {{rform.password(placeholder="Password...",class=" form-control input-lg", id="inputGroupSuccess1 input pass",required="", **{"data-parsley-errors-container":"#password","data-parsley-minlength":"6"} )}}
+					    
+					   
+						</div>
+						<i id="password"style="color:red" ></i>
+					</div>
+
+
+				 	<div class="form-group">
+				 		<label for="inputPassword3" class="control-label" id = "writing">{{rform.confirm.label}}</label>
+					 	<div class="input-group">
+					    <span class="input-group-addon"><i class = "glyphicon glyphicon-lock custom1"></i></span>
+					    {{rform.confirm(placeholder="confirm password...",class=" form-control input-lg", id="inputGroupSuccess1 input",required="", **{"data-parsley-errors-container":"#password1"} )}}
+						</div>
+
+						<i id="password1" style="color:red" ></i>
+					</div>
+
+
+
+					<div class="form-group">
+						<button class="btn btn-block custom">Register</button>
+					</div>
+
+
+
+			  	</form>
+
+		       
+		      </div>
+
+		       
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- end register-->
+
+
+
+
+
+
+
+
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script src="../static/js/typed.js"></script>
+
+<script type="text/javascript" src="../static/js/parsley.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+      $("#displaying").typed({
+        strings: ["Secure.!!!"
+		],
+        typeSpeed: 200
+      });
+  });
+
+
+        
+
+
+</script>
+
+
+ </body>
+ </html>

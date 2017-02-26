@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+ <html lang = 'en'>
+
+ 	<meta charset="utf-8">
+ <head>
+ 	<title>Market Place</title>
+ 	<meta name = "description" content = 'bootstrap'>
+ 	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<link rel="stylesheet" href="../static/css/font-awesome.css">
+<link href="../static/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="../static/css/jquery-ui.css">
+
+	<link rel="stylesheet" href="../static/css/main.css">
+
+ </head>
+
+ <body>
+  <!--narbar-->
+<nav class="navbar nav-market ">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand nav-market" href="#" style="font-family:'Shrikhand', cursive;">iprenuer</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    	<ul class="nav navbar-nav navbar-left">
+		    <li><a href="{{url_for('home',username=current_user.username)}}" class="nav-market"><i class="fa fa-shopping-basket"></i> Market Place</a></li>
+		    <li><a  href="{{url_for('pulse',username=current_user.username)}}" class="nav-market"><i class="fa fa-heartbeat"></i> Pulse</a></li>
+		    <li><a href="{{url_for('event',username=current_user.username)}}" class="nav-market"><i class="fa fa-gift"></i> Event</a></li>
+    	</ul>
+
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li><a  href="#" class="nav-market"><i class="fa fa-bell"></i> Notification <span class="badge">50</span></a></li>
+        
+        <li><a  href="#" class="nav-market"><i class="fa fa-envelope"></i> Message <span class="badge">50</span></a></li>
+
+        <li><a  href="{{url_for('user',username=current_user.username)}}" class="nav-market"><img src="http://res.cloudinary.com/onwuzulike/image/upload/a_360/v1476378025/rgljiwkxgyjtryzmrmju.jpg" class="img-responsive" alt="Responsive image" style="width:30px;height:30px"></a></li>
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle nav-market" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.username}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+
+            <li><a href="#">Settings</a></li>
+            
+            <li><a href="#"><i class"fa fa-power-off"></i>  Something else here</a></li>
+            
+            <li role="separator" class="divider"></li>
+            
+            <li><a href="{{url_for('logout')}}"><i class="fa fa-sign-out"></i></i> Logout</a></li>
+          </ul>
+          
+        </li>
+
+        <li>
+        	<button type="button" class="btn market-btn navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-send"></i> Post Item</button>
+        </li>
+
+      </ul>
+
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!--navbar -->
+
+  {% for messages in get_flashed_messages() %}
+        <div class="alert alert-info container">{{ messages }}</div>
+    {% endfor %}
+
+<!--tabs-->
+<div id="tabs" class="container">
+  <ul>
+    <li class="tb"><a href="#tabs-1">ALL</a></li>
+    <li class="tb"><a href="#tabs-2">Trade</a></li>
+    <li class="tb"><a href="#tabs-3">SALE</a></li>
+    <li class="tb"><a href="#tabs-4">RENT</a></li>
+    <li class="tb"><a href="#tabs-5">FREE</a></li>
+  </ul>
+
+  <div id="tabs-1">
+  
+        <div class="row">
+              {% for each in market %}
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
+              <hr style="margin-bottom:-10px">
+              <div class="caption">
+                <h3>{{each.itemname}}</h3>
+                <p>{{each.description}}</p>
+
+                    {%if each.free %}
+                    <i class="label label-info">free</i>
+                      {% else %}
+                    <i class="label" style="background-color:#bf360c">Price </i> {{each.price}}
+                      {% endif %}
+                
+                
+                
+                <p><i class="label" style="background-color:#004d40">Seller:</i><a href="{{url_for('user',username=each.seller)}}" style="color:#01579b"> <i><strong>{{each.seller}}</strong></i></a></p>
+                <a href="#" class="btn btn-success btn-block" role="button">BUY</a></p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+</div><!--all-->
+
+
+<div id="tabs-2">
+
+            <div class="row">
+                  {% for each in trade %}
+              <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                  <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
+                  <hr style="margin-bottom:-10px">
+                  <div class="caption">
+                    <h3>{{each.itemname}}</h3>
+                    <p>{{each.description}}</p>
+
+                        {%if each.free %}
+                        <i class="label label-info">free</i>
+                          {% else %}
+                        <i class="label" style="background-color:#bf360c">Price </i> {{each.price}}
+                          {% endif %}
+                    
+                    
+                    
+                    <p><i class="label" style="background-color:#004d40">Seller:</i><a href="{{url_for('user',username=each.seller)}}" style="color:#01579b"> <i><strong>{{each.seller}}</strong></i></a></p>
+                    <a href="#" class="btn btn-success" role="button">BUY</a></p>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+</div><!--trade-->  
+
+
+
+<div id="tabs-3">
+
+            <div class="row">
+                  {% for each in sale %}
+              <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                  <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
+                  <hr style="margin-bottom:-10px">
+                  <div class="caption">
+                    <h3>{{each.itemname}}</h3>
+                    <p>{{each.description}}</p>
+
+                        {%if each.free %}
+                        <i class="label label-info">free</i>
+                          {% else %}
+                        <i class="label" style="background-color:#bf360c">Price </i> {{each.price}}
+                          {% endif %}
+                    <p>{{each.itemtype}}</p>
+                    
+                    
+                    <p><i class="label" style="background-color:#004d40">Seller:</i><a href="{{url_for('user',username=each.seller)}}" style="color:#01579b"> <i><strong>{{each.seller}}</strong></i></a></p>
+                    <a href="#" class="btn btn-success" role="button">BUY</a></p>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+  </div><!--sale-->
+
+
+
+
+<div id="tabs-4">
+
+          <div class="row">
+                {% for each in rent %}
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail">
+                <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
+                <hr style="margin-bottom:-10px">
+                <div class="caption">
+                  <h3>{{each.itemname}}</h3>
+                  <p>{{each.description}}</p>
+
+                      {%if each.free %}
+                      <i class="label label-info">free</i>
+                        {% else %}
+                      <i class="label" style="background-color:#bf360c">Price </i>{{each.price}}
+                        {% endif %}
+                  <p>{{each.itemtype}}</p>
+                  
+                  
+                  <p><i class="label" style="background-color:#004d40">Seller:</i><a href="{{url_for('user',username=each.seller)}}" style="color:#01579b"> <i><strong>{{each.seller}}</strong></i></a></p>
+                  <a href="#" class="btn btn-success" role="button">BUY</a></p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+  </div><!--rent-->
+
+
+  <div id="tabs-5">
+            
+            <div class="row">
+                  {% for each in freee %}
+              <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                  <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
+                  <hr style="margin-bottom:-10px">
+                  <div class="caption">
+                    <h3>{{each.itemname}}</h3>
+                    <p>{{each.description}}</p>
+
+                        {%if each.free %}
+                        <i class="label label-info">free</i>
+                          {% else %}
+                        <i class="label" style="background-color:#bf360c">Price </i> {{each.price}}
+                          {% endif %}
+                    
+                    <p><i class="label" style="background-color:#004d40">Seller:</i><a href="{{url_for('user',username=each.seller)}}" style="color:#01579b"> <i><strong>{{each.seller}}</strong></i></a></p>
+                    <a href="#" class="btn btn-success" role="button">BUY</a></p>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          
+
+  </div><!--free-->
+
+
+
+
+</div><!--TABS-->
+
+
+
+
+<!-- list of items-->
+<!-- end of list of items -->
+
+<!--modal -->
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+
+        <form action="{{url_for('home',username=current_user.username)}}" method = 'POST' data-parsley-validate="" enctype="multipart/form-data">
+        	{{ form.hidden_tag() }}
+
+
+          <div class="form-group text-center ">
+            
+            <!--<div class="fileUpload btn btn-primary">
+            <span class="fa fa-upload" style="font-size:20px"> Upload</span>-->
+            {{form.itemimage(id="file-3")}}
+          
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">{{form.itemname.label}}:</label>
+            {{form.itemname(class="form-control", id="recipient-name",required="",**{"data-parsley-errors-container":"#checkbox-errors1" })}}
+            </div>
+            <i id="checkbox-errors1" style="color:red"></i>
+
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">{{form.description.label}}:</label>
+            {{form.description(class="form-control", id="recipient-name",required="",**{"data-parsley-errors-container":"#checkbox-errors2" })}}
+            </div>
+            <i id="checkbox-errors2" style="color:red"></i>
+          <div class="form-group ">
+          	<p class="btn free" style="background-color:#eb0a2c">Free?</p>
+			     </div>
+
+          
+          
+
+          <div class="form-group price">
+            <label for="recipient-name" class="control-label">{{form.price.label}}:
+            </label>
+            {{form.price(class="form-control", id="recipient-name")}}
+            </div>
+            
+
+
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">{{form.markettype.label}}:</label>
+            {{form.markettype(class="form-control", id="recipient-name",required="",**{"data-parsley-errors-container":"#checkbox-errors3" })}}
+            </div>
+            <i id="checkbox-errors3" style="color:red"></i>
+           <button class="btn market-btn">Post</button>
+        </form>
+      </div>
+
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- end modal-->
+
+
+
+
+
+
+
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<!-- file upload-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/fileinput.js"></script>
+
+<script type="text/javascript" src="../static/js/fa.js"></script>
+
+<!-- file upload-->
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+<script type="text/javascript" src="../static/js/parsley.js"></script>
+<script src="../static/js/jquery-ui.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
+
+<script type="text/javascript">
+$("#file-3").fileinput({
+    showUpload: false,
+    showCaption: false,
+    browseClass: "btn btn-warning btn-lg",
+    fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+  });
+$("#tabs").tabs();
+</script>
+
+ </body>
+
+ </html>

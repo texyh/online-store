@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+ <html lang = 'en'>
+
+ <head>
+ 	<meta charset="utf-8">
+ 	<title>Pulse</title>
+ 	<meta name = "description" content = 'bootstrap'>
+ 	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/jquery-ui.css">
+	<link rel="stylesheet" href="../static/css/main.css">
+
+ </head>
+
+ <body>
+<nav class="navbar nav-market">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand nav-market" href="#" style="font-family:'Shrikhand', cursive;">iprenuer</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    	<ul class="nav navbar-nav navbar-left">
+        <li><a href="{{url_for('home',username=current_user.username)}}" class="nav-market"><i class="fa fa-shopping-basket"></i> Market Place</a></li>
+        <li><a  href="{{url_for('pulse',username=current_user.username)}}" class="nav-market"><i class="fa fa-heartbeat"></i> Pulse</a></li>
+        <li><a href="{{url_for('event',username=current_user.username)}}" class="nav-market"><i class="fa fa-gift"></i> Event</a></li>
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li><a  href="#" class="nav-market"><i class="fa fa-bell"></i> Notification <span class="badge">50</span></a></li>
+        
+        <li><a  href="#" class="nav-market"><i class="fa fa-envelope"></i> Message <span class="badge">50</span></a></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle nav-market" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.username}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{url_for('logout')}}"><i class"glyphicon glyphicon-off"></i> Logout</a></li>
+          </ul>
+          
+        </li>
+
+
+        <li>
+          <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"> <i class=""></i>Share</button>
+        </li>
+      </ul>
+
+      <div class="text-center">
+		  <form class="navbar-form navbar-center">
+		    <div class="form-group">
+		      <input type="text" class="form-control" placeholder="Search">
+		    </div>
+		    <button type="submit" class="btn btn-default">Submit</button>
+		  </form>
+  
+  		</div>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+  {% for messages in get_flashed_messages() %}
+        <div class="alert alert-info container">{{ messages }}</div>
+    {% endfor %}
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    
+
+    {% for each in pulse %}
+    <ul class="list-group">
+      <li class="list-group-item">
+        
+        <a href="">
+          <div class="media">
+                  <div class="media-left media-middle">
+                      <a href="#">
+                        <img class="media-object" src="http://res.cloudinary.com/onwuzulike/image/upload/a_360/v1476378025/rgljiwkxgyjtryzmrmju.jpg" alt="..." style="width:50px;height:50px;">
+                      </a>  
+                    </div>
+
+                  <div class="media-body">
+                    <a href="{{url_for('user',username=each.poster)}}" style="font-size:20px;color:black"><i ><strong>{{each.poster}}</strong></i></a><br>
+                    <span style="font-size:15px">{{each.post}}</span>
+                  </div>
+          </div>
+          </a>
+          <hr style="margin-bottom:5px">
+          <div style="display:inline" class="text-center">
+          
+            <a href="#" style="color:#4a148c;font-size:12px" value='{{each.id}}' id="comment"><i class="fa fa-comment" value='{{each.id}}'></i> Comment</a>
+
+            <a href="#" style="{%if current_user.username in likers %}color:black;margin-left:70px;font-size:12px{%else%}color:red;margin-left:70px;font-size:12px{%endif%}" value='{{each.id}}' id="like"><i class="fa fa-heart"></i> Like</a>
+
+            <a href="#" style="color:#00c853;margin-left:70px;font-size:12px" value='{{each.id}}'><i class="fa fa-retweet"></i> Re-post</a>
+        
+          </div>
+          <div class="dummy" style="
+          color:black;"></div>
+          <hr style="margin-top:5px;margin-bottom:5px">
+            <div class="pulse-reaction">
+                    <i class="fa fa-heart {{each.id}}" style="color:red;"></i> <span class="figure-{{each.id}}">
+
+                    {{count}}</span> {% if count < 1 %} like{% else %} likes{% endif%}
+
+                    <i class="fa fa-comment" style="color:#4a148c;margin-left:20px"></i> <span id ="fc">3 </span>  comments
+                    <i class="fa fa-retweet" style="color:#00c853;margin-left:20px"></i> 6 reposts
+                  <hr style="margin-top:5px">
+                  <form class="" hidden>
+                        <div class="form-group">
+                        <input type="text" class="form-control comment-box" placeholder="write you comment">
+                        </div>
+                        <button type="submit" class="btn btn-default post-comment">post</button>
+                        <hr style="margin-top:5px">
+                  </form>
+                <div class='comments'>
+                    
+                     <p><em>{{each.poster}}</em> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan ex at est tincidunt, ac ornare arcu blandit. Phasellus rutrum euismod mauris sit amet efficitur. Aenean feugiat condimentum ipsum a tempus. Curabitur sit amet elementum erat, in porta lectus. Aliquam pharetra varius interdum. Maecenas porta elit nisi. Morbi suscipit auctor egestas</p>
+                 </div>
+          </div>
+
+
+
+        
+
+      </li>
+
+    </ul>
+    {%endfor%}
+  </div>  
+</div>
+<!-- end of list of items -->
+
+
+
+
+<!--modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+
+        <form action="{{url_for('pulse',username=current_user.username)}}" method = 'POST'>
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">{{form.status.label}}:</label>
+            {{form.status(class="form-control", id="recipient-name")}}
+          </div>
+
+           <button class="btn btn-primary">Post</button>
+        </form>
+      </div>
+
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--end modal-->
+
+
+
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="../static/js/jquery-ui.js"></script>
+<script src="../static/js/main.js"></script>
+ </body>
+
+ </html>
+
+
+
