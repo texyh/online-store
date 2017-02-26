@@ -25,9 +25,9 @@ class Config(object):
     UPLOADED_PHOTOS_DEST = os.path.join(basedir,"static", "images", "uploads")
 
     #dropbox
-    DROPBOX_KEY = os.getenv('DROPBOX_KEY')
-    DROPBOX_SECRET = os.getenv('DROPBOX_SECRET')
-    DROPBOX_ACCESS_TYPE = 'app_folder'
+    #DROPBOX_KEY = os.getenv('DROPBOX_KEY')
+    #DROPBOX_SECRET = os.getenv('DROPBOX_SECRET')
+    #DROPBOX_ACCESS_TYPE = 'app_folder'
 
     
 class DevelopmentConfig(Config):

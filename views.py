@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, \
-                flash, session, send_from_directory
+                flash, session, send_from_directory, jsonify
 import os
 from flask_sqlalchemy import SQLAlchemy
 
@@ -11,7 +11,7 @@ from flask_login import login_required, logout_user, login_user, current_user
 
 from werkzeug.utils import secure_filename
 
-from flask_dropbox import Dropbox
+#from flask_dropbox import Dropbox
 
 
 app = Flask(__name__)
@@ -24,7 +24,7 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = '/login'
 
 #flask-dropbox
-dropbox = Dropbox(app)
+#dropbox = Dropbox(app)
 
 #cloudinary
 from cloudinary.uploader import upload
@@ -100,58 +100,6 @@ def registration():
 
 
 
-@app.route('/home/<username>',methods=['GET','POST'])
-@login_required
-@check_confirmed
-def home(username):
-    form = MarketForm()
-    form.markettype.choices = [(None,'Option'),('trade','Trade'),\
-                            ('rent','Rent'),('sale','Sale')]
-    user_school = Profile.query.filter_by(user_id=current_user.id).first()
-
-    if request.method == 'POST':
-        if form.validate():
-            itemname = form.itemname.data
-            itemdescription = form.description.data
-            markettype = form.markettype.data
-            price = form.price.data
-            #ptime = time.time()
-            up_file = form.itemimage.data
-            #filename = secure_filename(form.itemimage.data.filename)
-            #filename = str(ptime)+filename
-            #client = dropbox.client
-            if form.price.data:
-                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
-                 #filename))
-                # Actual uploading process
-                #result = client.put_file('/ipreneur_uploads' + filename, file_obj.read())
-                upload_result = upload(up_file)
-                imagename=upload_result['public_id']
-                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-                    price=price,free=False,imagename=imagename,school=user_school.school)
-                db.session.add(market)
-                db.session.commit()
-                return redirect(url_for('home',username=current_user.username))
-                
-            else:
-                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
-                #filename))
-                upload_result = upload(up_file)
-                imagename=upload_result['public_id']
-                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
-                    price=None,free=True,imagename=imagename,school=user_school.school)
-                db.session.add(market)
-                db.session.commit()
-                return redirect(url_for('home',username=current_user.username))
-
-        flash('Enter all fields')
-        return redirect(url_for('home',username=current_user.username))
-    market = Market.query.filter_by(school=user_school.school).all()
-    return render_template('home.html',form=form,market=market)
-
-
-
-
 
 @app.route('/profile', methods = ['GET','POST'])
 def profile():
@@ -177,7 +125,12 @@ def profile():
     return render_template('profile.html',form=form)
 
 
-
+@app.route('/user/<username>')
+def user(username):
+    market = Market.query.filter_by(seller=username)
+    event = Event.query.filter_by(eventposter=username)
+    pulse = Pulse.query.filter_by(poster=username)
+    return render_template('user.html',market=market,event=event,pulse=pulse)
 
 @app.route('/confirm_email/<token>')
 @login_required
@@ -218,18 +171,110 @@ def resend():
 
 
 
+@app.route('/home/<username>',methods=['GET','POST'])
+@login_required
+@check_confirmed
+def home(username):
+    form = MarketForm()
+    form.markettype.choices = [(None,'Option'),('trade','Trade'),\
+                            ('rent','Rent'),('sale','Sale'),('free','Free')]
+    user_school = Profile.query.filter_by(user_id=current_user.id).first()
+
+    if request.method == 'POST':
+        if form.validate():
+            itemname = form.itemname.data
+            itemdescription = form.description.data
+            markettype = form.markettype.data
+            price = form.price.data
+            #ptime = time.time()
+            up_file = form.itemimage.data
+            #filename = secure_filename(form.itemimage.data.filename)
+            #filename = str(ptime)+filename
+            #client = dropbox.client
+            if form.price.data:
+                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
+                 #filename))
+                # Actual uploading process
+                #result = client.put_file('/ipreneur_uploads' + filename, file_obj.read())
+                upload_result = upload(up_file)
+                imagename=upload_result['public_id']
+                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
+                    price=price,free=False,imagename=imagename,school=user_school.school,\
+                    seller=current_user.username)
+                db.session.add(market)
+                db.session.commit()
+                return redirect(url_for('home',username=current_user.username))
+                
+            else:
+                #form.itemimage.data.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'],\
+                #filename))
+                upload_result = upload(up_file)
+                imagename=upload_result['public_id']
+                market = Market(itemname=itemname,description=itemdescription,itemtype=markettype,\
+                    price=None,free=True,imagename=imagename,school=user_school.school,seller=current_user.username)
+                db.session.add(market)
+                db.session.commit()
+                return redirect(url_for('home',username=current_user.username))
+
+        flash('Enter all fields')
+        return redirect(url_for('home',username=current_user.username))
+    market = Market.query.filter_by(school=user_school.school).all()
+    trade = Market.query.filter_by(itemtype='trade',school=user_school.school).all()
+    rent = Market.query.filter_by(itemtype='rent',school=user_school.school).all()
+    sale = Market.query.filter_by(itemtype='sale',school=user_school.school).all()
+    freee = Market.query.filter_by(itemtype='free',school=user_school.school).all()
+    return render_template('home.html',form=form,market=market,trade=trade,sale=sale,rent=rent,freee=freee)
+
+
+
+
+
+
 
 @app.route('/event/<username>', methods=['GET','POST'])
 @login_required
 @check_confirmed
 def event(username):
     form = EventForm()
+    form.eventtype.choices  = [(None,'Eventype'),('TGIF','TGIF'),\
+    ('Religious','Religious'),('Academic','Academic')]
+    user_school = Profile.query.filter_by(user_id=current_user.id).first()
+    form.eventoption.choices = [('free','free')]
     if request.method == 'POST':
+        up_file = form.eventimage.data
+        eventtitle=form.eventtitle.data
+        description=form.description.data
+        eventdate=form.eventdat.data
+        eventtime=form.eventtime.data.time()
+        eventvenue=form.eventvenue.data
+        eventoption=form.eventoption.data
+        eventtype=form.eventtype.data
+        eventprice=form.price.data
         if form.validate():
-            return 'this page is still under construction'
+            if form.price.data:
+                upload_result = upload(up_file)
+                imagename = upload_result['public_id']
+                event = Event(eventtitle=eventtitle,description=description,price=eventprice,\
+                            eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
+                            eventoption=False,eventschool=user_school.school,free=False,\
+                            imagename=imagename,eventposter=current_user.username)
+                db.session.add(event)
+                db.session.commit()
+                return redirect(url_for('event',username=current_user.username))
+            else:
+                upload_result = upload(up_file)
+                imagename = upload_result['public_id']
+                event = Event(eventtitle=eventtitle,description=description,price=None,\
+                            eventtype=eventtype,date=eventdate,time=eventtime,eventvenue=eventvenue,\
+                            eventoption=True,eventschool=user_school.school,free=True,\
+                            imagename=imagename,eventposter=current_user.username)
+                db.session.add(event)
+                db.session.commit()
+                return redirect(url_for('event',username=current_user.username))
         flash('Enter all fields')
         return redirect(url_for('event',username=current_user.username))
-    return render_template('event.html',form=form)
+    event = Event.query.filter_by(eventschool=user_school.school)
+    return render_template('event.html',form=form,event=event)
 
 
 
@@ -239,15 +284,62 @@ def event(username):
 @check_confirmed
 def pulse(username):
     form = PulseForm()
+    user_school = Profile.query.filter_by(user_id=current_user.id).first()
     if request.method == 'POST':
-        return form.status.data
+        if form.validate:
+            post = form.status.data
+            pulse = Pulse(post=post,school=user_school.school,poster=current_user.username)
+            db.session.add(pulse)
+            db.session.commit()
+            return redirect(url_for('pulse',username=current_user.username))
 
-    return render_template('pulse.html',form=form)
+        flash('enter all fields')
+        return redirect(url_for('pulse',username=current_user.username))
+    pulse = Pulse.query.filter_by(school=user_school.school)
+    likes = PulseLikes.query.all()
+    #count = PulseLikes.query.count()
+    
+    likers = [x.likers for x in likes]
+    return render_template('pulse.html',form=form,pulse=pulse,likes=likes,\
+        likers=likers)
 
+
+
+@app.route('/like',methods=['POST','GET'])
+@login_required
+def like():
+    id = request.form['id']
+    liked = PulseLikes.query.filter_by(pulseonwer=id,likers=current_user.username).first()
+    if liked:
+        return 'no'
+    else:
+        p = Pulse.query.get(id)
+        if p is None:
+            new_like = PulseLikes(pulseonwer=id,likers=current_user.username)
+            p.likes = 1
+            db.session.add(new_like, p)
+            db.session.commit()
+            return 'yes'
+        else:
+            #import pdb
+            #pdb.set_trace()
+            new_like = PulseLikes(pulseonwer=id,likers=current_user.username)
+            p.likes +=1
+            db.session.add(new_like, p)
+            db.session.commit()
+            return 'yes'
+
+
+
+
+
+'''
 @app.route('/uploaded/<filename>')
 def uploaded(filename):
     return cloudinary_url(filename, width=200, height=200)
     #return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'],filename)
+'''
+
 
 
 

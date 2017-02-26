@@ -12,6 +12,7 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/jquery-ui.css">
 	<link rel="stylesheet" href="../static/css/main.css">
 
  </head>
@@ -85,21 +86,68 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    
+
+    {% for each in pulse %}
     <ul class="list-group">
       <li class="list-group-item">
+        
+        <a href="">
           <div class="media">
-          <div class="media-left media-middle">
-              <a href="#">
-                <img class="media-object" src="https://scontent-ams3-1.xx.fbcdn.net/v/t1.0-1/p160x160/13508842_10208063141991134_1128396899011991733_n.jpg?_nc_eui2=v1%3AAeEdnCFZ8rDKdIfnMvm9J-4BBO6bY67dR6v8NVUTY7C8i0McEI4S-d9fUAqFXNfs4xy4LR65u7-rOMfAQV0tgOWldC7smvu1Whv4v_WMlrpZVA&oh=fb17d1405deea92231a538880f86bae4&oe=586DF9E6" alt="...">
-              </a>  
-            </div>
-          <div class="media-body">
-            <h4 class="media-heading">Media heading</h4>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-           </div>
+                  <div class="media-left media-middle">
+                      <a href="#">
+                        <img class="media-object" src="http://res.cloudinary.com/onwuzulike/image/upload/a_360/v1476378025/rgljiwkxgyjtryzmrmju.jpg" alt="..." style="width:50px;height:50px;">
+                      </a>  
+                    </div>
+
+                  <div class="media-body">
+                    <a href="{{url_for('user',username=each.poster)}}" style="font-size:20px;color:black"><i ><strong>{{each.poster}}</strong></i></a><br>
+                    <span style="font-size:15px">{{each.post}}</span>
+                  </div>
+          </div>
+          </a>
+          <hr style="margin-bottom:5px">
+          <div style="display:inline" class="text-center">
+          
+            <a href="#" style="color:#4a148c;font-size:12px" value='{{each.id}}' id="comment"><i class="fa fa-comment" value='{{each.id}}'></i> Comment</a>
+
+            <a href="#" style="{%if current_user.username in likers %}color:black;margin-left:70px;font-size:12px{%else%}color:red;margin-left:70px;font-size:12px{%endif%}" value='{{each.id}}' id="like"><i class="fa fa-heart"></i> Like</a>
+
+            <a href="#" style="color:#00c853;margin-left:70px;font-size:12px" value='{{each.id}}'><i class="fa fa-retweet"></i> Re-post</a>
+        
+          </div>
+          <div class="dummy" style="
+          color:black;"></div>
+          <hr style="margin-top:5px;margin-bottom:5px">
+            <div class="pulse-reaction">
+                    <i class="fa fa-heart {{each.id}}" style="color:red;"></i> <span class="figure-{{each.id}}">
+
+                    {{count}}</span> {% if count < 1 %} like{% else %} likes{% endif%}
+
+                    <i class="fa fa-comment" style="color:#4a148c;margin-left:20px"></i> <span id ="fc">3 </span>  comments
+                    <i class="fa fa-retweet" style="color:#00c853;margin-left:20px"></i> 6 reposts
+                  <hr style="margin-top:5px">
+                  <form class="" hidden>
+                        <div class="form-group">
+                        <input type="text" class="form-control comment-box" placeholder="write you comment">
+                        </div>
+                        <button type="submit" class="btn btn-default post-comment">post</button>
+                        <hr style="margin-top:5px">
+                  </form>
+                <div class='comments'>
+                    
+                     <p><em>{{each.poster}}</em> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan ex at est tincidunt, ac ornare arcu blandit. Phasellus rutrum euismod mauris sit amet efficitur. Aenean feugiat condimentum ipsum a tempus. Curabitur sit amet elementum erat, in porta lectus. Aliquam pharetra varius interdum. Maecenas porta elit nisi. Morbi suscipit auctor egestas</p>
+                 </div>
+          </div>
+
+
+
+        
+
       </li>
 
     </ul>
+    {%endfor%}
   </div>  
 </div>
 <!-- end of list of items -->
@@ -117,7 +165,7 @@
       </div>
       <div class="modal-body">
 
-        <form action="/home" method = 'POST'>
+        <form action="{{url_for('pulse',username=current_user.username)}}" method = 'POST'>
           {{ form.hidden_tag() }}
 
           <div class="form-group">
@@ -142,6 +190,8 @@
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="../static/js/jquery-ui.js"></script>
+<script src="../static/js/main.js"></script>
  </body>
 
  </html>
