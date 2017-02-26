@@ -12,6 +12,8 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
   <link rel="stylesheet" href="../static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/jquery-ui.css">
+  <link href="../static/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="../static/css/main.css">
 
  </head>
@@ -74,37 +76,57 @@
         <div class="alert alert-info container">{{ messages }}</div>
     {% endfor %}
 
+<div id="tabs" class="container">
+  <ul>
+    <li><a href="#tabs-1">ALL</a></li>
+    <li><a href="#tabs-2">TGIF</a></li>
+    <li><a href="#tabs-3">RELIGIOUS</a></li>
+    <li><a href="#tabs-4">ACADEMIC</a></li>
+    
+  </ul>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div id="tabs-1">
+    <div class="row">
+              {% for each in event %}
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img class="uploaded-image" src="{{each.image_url()}}" alt="...">
+              <hr style="margin-bottom:-10px">
+              <div class="caption">
+                <h3>{{ each.eventtitle }}</h3>
+                <p>{{each.description}}</p>
+                {% if each.price %}
+                  <p><span class="fa fa-money"></span>{{each.price}}
+                {%else%}
+                <i class="label label-info">free</i></p>
+                {% endif %}
 
+                <div style="display:inline">
+                    
+                      <span class="fa fa-calendar-check-o"></span><i class=""> {{each.date}}</i>
+                  
+                    
+                      <span class="fa fa-hourglass-start" style="margin-left:30px"></span><i class="text-left"> {{each.time}}</i>
+                    
+                </div>
 
-      <div class="text-center">
-      <form class="navbar-form navbar-center">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-  
-      </div>
-
-    <ul class="list-group">
-      <li class="list-group-item">
-          <div class="media">
-          <div class="media-left media-middle">
-              <a href="#">
-                <img class="media-object" src="https://scontent-ams3-1.xx.fbcdn.net/v/t1.0-1/p160x160/13508842_10208063141991134_1128396899011991733_n.jpg?_nc_eui2=v1%3AAeEdnCFZ8rDKdIfnMvm9J-4BBO6bY67dR6v8NVUTY7C8i0McEI4S-d9fUAqFXNfs4xy4LR65u7-rOMfAQV0tgOWldC7smvu1Whv4v_WMlrpZVA&oh=fb17d1405deea92231a538880f86bae4&oe=586DF9E6" alt="...">
-              </a>  
+                <div style="margin-top:10px;margin-bottom:10px"><span class="fa fa-map-marker"></span> {{each.eventvenue}}<br></div>
+                <a href="#" class="btn btn-block" role="button" style="background-color:#0277bd;color:white ">ATTEND</a></p>
+              </div>
             </div>
-          <div class="media-body">
-            <h4 class="media-heading">Media heading</h4>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-           </div>
-      </li>
+          </div>
+          {% endfor %}
+        </div>
 
-    </ul>
-  </div>  
+
+  </div><!--ALL -->
+  <div id="tabs-2"></div><!--TGIF -->
+  <div id="tabs-3"></div><!--RELIGIOUS-->
+  <div id="tabs-4"></div><!--ACADEMIC -->
+  
+
+
+
 </div>
 <!-- end of list of items -->
 
@@ -121,13 +143,14 @@
       </div>
       <div class="modal-body">
 
-        <form action="{{url_for('event',username=current_user.username)}}" method = 'POST'>
+        <form action="{{url_for('event',username=current_user.username)}}" method = 'POST' enctype="multipart/form-data">
           {{ form.hidden_tag() }}
 
 
-          <div class="form-group ">
-            <label  class="control-label">{{form.eventimage.label}}:</label>
-            {{form.eventimage()}}
+          <div class="form-group text-center">
+            
+            {{form.eventimage(id="file-3")}}
+        
           </div>
 
           <div class="form-group">
@@ -135,6 +158,12 @@
             {{form.eventtitle(class="form-control", id="recipient-name")}}
           </div>
 
+
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">{{form.description.label}}:</label>
+            {{form.description(class="form-control", id="recipient-name")}}
+          </div>
+          
           <div class="form-group">
 
                   <div class="row">
@@ -147,7 +176,7 @@
                     <div class="form-inline">
                         <div class="col-md-6 col-xs-12">
                           <label for="recipient-name" class="control-label">{{form.eventtime.label}}:</label>
-                          {{form.eventtime(class="form-control",placeholder="H:M:S")}}
+                          {{form.eventtime(class="form-control",placeholder="YYYY-MM-DD H:M:S")}}
                         </div>
                     </div>
                   </div>
@@ -156,7 +185,7 @@
           <div class="form-group ">
             <p class="btn free" style="background-color:#eb0a2c;color:white">Free?</p>
            </div>
-
+          
 
           <div class="form-group price">
             <label for="recipient-name" class="control-label">{{form.price.label}}:
@@ -171,12 +200,12 @@
             {{form.eventvenue(class="form-control", id="recipient-name")}}
           </div>
 
-
+          
           <div class="form-group">
             <label for="recipient-name" class="control-label">{{form.eventtype.label}}:</label>
             {{form.eventtype(class="form-control", id="recipient-name")}}
           </div>
-
+          
 
 
            <button class="btn" style="background-color:#eb0a2c;color:white">Share Event</button>
@@ -199,9 +228,23 @@
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+<script src="../static/js/jquery-ui.js"></script>
+<script type="text/javascript" src="../static/js/fileinput.js"></script>
 
 <script type="text/javascript" src="../static/js/main.js"></script>
+
+<script type="text/javascript">
+$("#file-3").fileinput({
+    showUpload: false,
+    showCaption: false,
+    browseClass: "btn btn-warning btn-lg",
+    fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+  });
+
+$("#tabs").tabs();
+
+</script>
  </body>
 
  </html>
