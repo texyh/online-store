@@ -115,7 +115,7 @@ class ProfileForm(Form):
 
 
 class MarketForm(Form):
-    mychoice = [(None,'Option'),('trade','Trade'),('rent','Rent'),('sale','Sale')]
+    mychoice = [(None,'Option'),('trade','Trade'),('rent','Rent'),('sale','Sale'),('free','Free')]
     itemimage = FileField('itemphoto',validators=[
         FileRequired(), FileAllowed(photos, 'Images only!')
         ])
