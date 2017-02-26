@@ -3,6 +3,7 @@ bcrypt==3.1.1
 blinker==1.4
 cffi==1.8.3
 click==6.6
+cloudinary==1.4.0
 Flask==0.11.1
 Flask-Bcrypt==0.7.1
 Flask-Login==0.3.2
@@ -17,9 +18,13 @@ itsdangerous==0.24
 Jinja2==2.8
 Mako==1.0.4
 MarkupSafe==0.23
+psycopg2==2.6.2
 pycparser==2.14
 python-editor==1.0.1
+requests==2.11.1
 six==1.10.0
 SQLAlchemy==1.1.0
+typing==3.5.2.2
+urllib3==1.18
 Werkzeug==0.11.11
 WTForms==2.1

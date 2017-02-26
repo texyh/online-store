@@ -17,6 +17,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from flask import current_app
 
+from cloudinary.utils import cloudinary_url
+
 
 
 
@@ -68,7 +70,7 @@ class User(db.Model,UserMixin):
         return True
 
 
-    
+
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
@@ -99,6 +101,7 @@ class Profile(db.Model):
         self.user_id = user_id
         
 
+#class UserProfile(db.Model):
 
 
 '''
@@ -117,12 +120,13 @@ class Market(db.Model):
     itemname = db.Column('itemname',db.String,nullable=False)
     description = db.Column('description',db.String,nullable=False)
     price = db.Column('price',db.String,nullable=True)
-    itemtype = db.Column('itemtype',db.String,nullable=False)
+    itemtype = db.Column('itemtype',db.String)
     free = db.Column('free',db.Boolean,default=False)
     imagename = db.Column('imagename',db.String)
     school = db.Column('school',db.String)
+    seller = db.Column('seller',db.String)
 
-    def __init__(self,itemname,description,price,itemtype,free,imagename,school):
+    def __init__(self,itemname,description,price,itemtype,free,imagename,school,seller):
 
         self.itemname = itemname
         self.description = description
@@ -131,7 +135,11 @@ class Market(db.Model):
         self.free = free
         self.imagename = imagename
         self.school = school
+        self.seller = seller
 
+    def image_url(self):
+        result = cloudinary_url(self.imagename, width=200, height=200)
+        return result[0]
 
 class Event(db.Model):
     __tablename__ = 'event'
@@ -139,7 +147,7 @@ class Event(db.Model):
     id = db.Column('id',db.Integer,primary_key=True)
     eventtitle= db.Column('eventtitle',db.String,nullable=False)
     description = db.Column('description',db.String,nullable=False)
-    price = db.Column('price',db.String,nullable=False)
+    price = db.Column('price',db.String)
     eventtype = db.Column('eventtype',db.String,nullable=True,default="")
     date = db.Column('date',db.Date,nullable=False)
     time = db.Column('time',db.Time,nullable=False)
@@ -148,8 +156,9 @@ class Event(db.Model):
     eventschool = db.Column('school',db.String)
     free = db.Column('free',db.Boolean,default=False)
     imagename = db.Column('imagename',db.String)
+    eventposter  = db.Column('Eventposter',db.String)
     def __init__(self,eventtitle,description,price,eventtype,date,time,eventvenue, \
-                 eventoption,school,free,imagename):
+                 eventoption,eventschool,free,imagename,eventposter):
 
         self.eventtitle = eventtitle
         self.description = description
@@ -159,6 +168,64 @@ class Event(db.Model):
         self.time =time
         self.eventvenue = eventvenue
         self.eventoption = eventoption
-        self.school = school
+        self.eventschool = eventschool
         self.free = free
         self.imagename = imagename
+        self.eventposter  = eventposter 
+
+    def image_url(self):
+        result = cloudinary_url(self.imagename, width=200, height=200)
+        return result[0]
+
+
+
+
+class Pulse(db.Model):
+    __tablename__ ='pulse'
+
+    id = db.Column('id',db.Integer,primary_key=True)
+    post = db.Column('post',db.String)
+    school = db.Column('school',db.String)
+    poster = db.Column('poster',db.String)
+    likes = db.Column('likes',db.Integer)
+
+
+    def __init__(self,post,school,poster):
+        self.post = post
+        self.school = school
+        self.poster = poster
+        self.likes = likes
+
+    def likes(self):
+        return self.likes
+
+
+
+
+class PostComment(db.Model):
+    __tablename__ = 'postcomment'
+    id = db.Column('id',db.Integer,primary_key=True)
+    comment = db.Column('comment',db.String)
+    commentor = db.Column('commentor',db.String)
+    pulseonwer = db.Column('pulseonwer',db.Integer)
+
+    def __init__(self,comment,commentor):
+        self.comment = comment
+        self.commentor = commentor
+        self.pulseonwer = pulseonwer
+
+
+
+class PulseLikes(db.Model):
+    __tablename__ = "pulselikes"
+    id = db.Column('id',db.Integer,primary_key=True)
+    pulseonwer = db.Column('pulseonwer',db.Integer)
+    likers = db.Column('likers',db.String)
+    
+
+    def __init__(self,pulseonwer,likers,likes):
+        self.pulseonwer = pulseonwer
+        self.likers = likers
+        
+
+
