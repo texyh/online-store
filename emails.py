@@ -1,4 +1,4 @@
-from flask_mail import Mail, Message 
+from flask_mail import Mail, Message
 from flask import render_template
 from views import app
 
@@ -22,7 +22,7 @@ def send_async_mail(app,msg):
 def send_mail(to,subject,template,):
 	msg = Message(subject,recipients=[to],html=template,
 				sender=app.config['MAIL_DEFAULT_SENDER'])
-	
+
 	send_async_mail(app,msg)
 
 

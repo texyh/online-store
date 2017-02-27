@@ -5,8 +5,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 #Base config 
 
 class Config(object):
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SECRET_KEY = os.getenv('SECRET_KEY') or 'this is a secret'
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'deve.sqlite')
 
     # mail settings
     MAIL_SERVER = 'smtp.gmail.com'

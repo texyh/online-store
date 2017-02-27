@@ -19,10 +19,7 @@ from flask import current_app
 
 from cloudinary.utils import cloudinary_url
 
-
-
-
-db =  SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 # app.config.from_object(os.get_env('APP_SETTINGS','config.DevelopmentConfig'))
 
@@ -36,7 +33,7 @@ manager.add_command('db', MigrateCommand)
 
 
 
-class User(db.Model,UserMixin):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column('id', db.Integer, primary_key=True)
     username = db.Column('username', db.String, nullable=False,unique=True)
@@ -76,19 +73,14 @@ class User(db.Model,UserMixin):
         return User.query.get(int(user_id))
 
 
-
-
-
-        
-
 class Profile(db.Model):
     __tablename__ = 'profile'
-    id = db.Column('id',db.Integer,primary_key=True)
-    phonenumber = db.Column('phonenumber',db.String,nullable=False)
-    gender = db.Column('gender',db.String,nullable=False)
-    entrydate = db.Column('entrydate',db.Date,nullable=False)
-    graddate = db.Column('graddate',db.Date,nullable=False)
-    school = db.Column('school',db.String,nullable=False)
+    id = db.Column('id', db.Integer, primary_key=True)
+    phonenumber = db.Column('phonenumber', db.String, nullable=False)
+    gender = db.Column('gender', db.String, nullable=False)
+    entrydate = db.Column('entrydate', db.Date, nullable=False)
+    graddate = db.Column('graddate', db.Date, nullable=False)
+    school = db.Column('school', db.String, nullable=False)
     user_id = db.Column('user_id',db.Integer,db.ForeignKey('users.id'))
 
     def __init__(self,phonenumber,gender,
@@ -215,7 +207,6 @@ class PostComment(db.Model):
         self.pulseonwer = pulseonwer
 
 
-
 class PulseLikes(db.Model):
     __tablename__ = "pulselikes"
     id = db.Column('id',db.Integer,primary_key=True)
@@ -227,5 +218,9 @@ class PulseLikes(db.Model):
         self.pulseonwer = pulseonwer
         self.likers = likers
         
+
+class Notification(db.Model):
+    __tablename__ = "notification"
+    id =  db.Column('id', db.Integer, primary_key=True)
 
 
